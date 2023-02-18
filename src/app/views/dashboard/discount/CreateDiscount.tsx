@@ -18,6 +18,7 @@ import {DiscountServices} from "../../../services/api-services/discount.services
 import {toast} from "react-toastify";
 import ThemeButton from "../../../components/dashboard/ThemeButton";
 import {MenuServices} from "../../../services/api-services/menu-services";
+import Heading from "../../../components/dashboard/Heading";
 
 // import {CiCalendarDate} from "react-icons/ci"
 
@@ -171,12 +172,12 @@ export default function CreateDiscount() {
 
         if(watchAppliesTo === DISCOUNT.APPLIES_TO.SPECIFIC){
             setLoader(true)
-            MenuServices.getAllProducts(null,{api_type: 'basic'}).then((res)=>{
+            MenuServices.getAllProducts(null,{establishment_id:establishmentId,api_type: 'basic'}).then((res)=>{
                 setProducts(res.data)
                 setLoader(false)
             })
         }
-    },[watchType, watchAppliesTo])
+    },[watchType, watchAppliesTo,establishmentId])
     return(
         <>
             <div className={"discount"}>
@@ -187,7 +188,7 @@ export default function CreateDiscount() {
                                     <Col md={12} lg={7} xl={8}>
                                         <Row>
                                             <Col md={12}>
-                                                <h2 className={"dash-heading"}>Details</h2>
+                                                <Heading><h2><span>Details</span></h2></Heading>
                                             </Col>
                                         </Row>
                                         <Row className={"h-100"}>

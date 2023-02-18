@@ -10,6 +10,7 @@ import {IOrderList} from "../../../interfaces/IOrder";
 import {OrderServices} from "../../../services/api-services/order.service";
 import {BACKEND_CONSTANTS, GENERIC} from "../../../config/constants";
 import TransactionDetailSkeleton from "../../../skeletons/payments/TransactionDetailSkeleton";
+import Heading from "../../../components/dashboard/Heading";
 
 export default function TransactionDetails() {
     const{setTitle} = useUserContext()
@@ -40,7 +41,7 @@ export default function TransactionDetails() {
                         <div className={"transaction-details"}>
                             <Row>
                                 <Col md={12}>
-                                    <h2 className={"dash-heading"}>Customer Detail</h2>
+                                    <Heading><h2><span>Customer Detail</span></h2></Heading>
                                     <div className={"user-detail"}>
                                         <ul>
                                             <li><BiUser/> M . Martin</li>
@@ -52,39 +53,43 @@ export default function TransactionDetails() {
                             </Row>
                             <Row>
                                 <Col md={6}>
-                                    <h2 className={"dash-heading"}>Payment Status</h2>
-                                    <div className={"payment-detail-table"}>
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <th scope="col">Transaction ID</th>
-                                                <th scope="col"></th>
-                                                <th scope="col">Mode</th>
-                                                <th scope="col"></th>
-                                                <th scope="col">Amount</th>
-                                                <th scope="col"></th>
-                                                <th scope="col">Change due</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {
-                                                order?.transactions && order?.transactions.map((transaction)=> {
-                                                    return (
-                                                        <tr>
-                                                            <td data-label="Account">{transaction.id}</td>
-                                                            <td data-label="Due Date"><hr/></td>
-                                                            <td data-label="Amount">{transaction.source_type_text}</td>
-                                                            <td data-label="Due Date"><hr/></td>
-                                                            <td data-label="Period">{transaction.amount_received}</td>
-                                                            <td data-label="Due Date"><hr/></td>
-                                                            <td data-label="Period">{transaction.amount_returned}</td>
-                                                        </tr>
-                                                    )
-                                                })
-                                            }
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    <Heading><h2><span>Payment Status</span></h2></Heading>
+                                    {
+                                        order?.transactions && order?.transactions.length > 0 &&
+                                        <div className={"payment-detail-table"}>
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">ID</th>
+                                                    <th scope="col"/>
+                                                    <th scope="col">Mode</th>
+                                                    <th scope="col"/>
+                                                    <th scope="col">Amount</th>
+                                                    <th scope="col"/>
+                                                    <th scope="col">Change due</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {
+                                                    order?.transactions.map((transaction)=> {
+                                                        return (
+                                                            <tr>
+                                                                <td data-label="Account">{transaction.id}</td>
+                                                                <td data-label="Due Date"><hr/></td>
+                                                                <td data-label="Amount">{transaction.source_type_text}</td>
+                                                                <td data-label="Due Date"><hr/></td>
+                                                                <td data-label="Period">{transaction.amount_received}</td>
+                                                                <td data-label="Due Date"><hr/></td>
+                                                                <td data-label="Period">{transaction.amount_returned}</td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                }
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    }
                                     <div className={"order-details"}>
                                         <ul>
                                             <li>
@@ -105,7 +110,7 @@ export default function TransactionDetails() {
                                             </li>
                                             <li>
                                                 <h5>Amount</h5>
-                                                <p>{GENERIC.currency + order?.gross_amount}</p>
+                                                <p>{GENERIC.currency}{order?.gross_amount}</p>
                                             </li>
                                             <li>
                                                 <h5>Source</h5>
@@ -113,17 +118,17 @@ export default function TransactionDetails() {
                                             </li>
                                             <li>
                                                 <h5>Order Taker</h5>
-                                                <p>{order?.order_taker?.full_name}</p>
+                                                <p>{order?.order_taker?.full_name || '-'}</p>
                                             </li>
                                             <li>
                                                 <h5>Tip</h5>
-                                                <p>{GENERIC.currency + order?.tip}</p>
+                                                <p>{GENERIC.currency}{order?.tip || 0}</p>
                                             </li>
                                         </ul>
                                     </div>
                                 </Col>
                                 <Col md={6}>
-                                    <h2 className={"dash-heading"}>Order Detail</h2>
+                                    <Heading><h2><span>Order Detail</span></h2></Heading>
                                     <div className={"order-detail-table"}>
                                         <table>
                                             <thead>
@@ -139,7 +144,7 @@ export default function TransactionDetails() {
                                                     <tr>
                                                         <td>{item.product.name || '-'}</td>
                                                         <td>{item.purchased_qty}</td>
-                                                        <td>{item.payable_price}</td>
+                                                        <td>{GENERIC.currency}{item.payable_price}</td>
                                                     </tr>
                                                 )
                                             })}
@@ -155,39 +160,35 @@ export default function TransactionDetails() {
                                                 <td>
                                                     <div className={"cal-title"}>Sub Total:</div>
                                                 </td>
-                                                <td>{order?.gross_amount}</td>
+                                                <td>{GENERIC.currency}{order?.gross_amount}</td>
                                             </tr>
                                             <tr className={"calculation"}>
                                                 <td colSpan={1}></td>
                                                 <td><div className={"cal-title"}>Manual Discount:</div></td>
-                                                <td>{order?.discount_type === BACKEND_CONSTANTS.ORDERS.ORDER_DISCOUNT_TYPE.DISCOUNT ? order.total_discount : 0}</td>
+                                                <td>{GENERIC.currency}{order?.discount_type === BACKEND_CONSTANTS.ORDERS.ORDER_DISCOUNT_TYPE.DISCOUNT ? order.total_discount : 0}</td>
                                             </tr>
 
                                             <tr className={"calculation"}>
                                                 <td colSpan={1}></td>
                                                 <td> <div className={"cal-title"}>Service Charges:</div></td>
-                                                <td>{order?.service_charges}</td>
+                                                <td>{GENERIC.currency}{order?.service_charges}</td>
                                             </tr>
                                             <tr className={"calculation"}>
                                                 <td colSpan={1}></td>
                                                 <td><div className={"cal-title"}>Delivery Charges:</div></td>
-                                                <td>0</td>
+                                                <td>{GENERIC.currency}{order?.delivery_charges || 0}</td>
                                             </tr>
                                             <tr className={"calculation"}>
                                                 <td colSpan={1}></td>
                                                 <td> <div className={"cal-title"}>Promo Code Discount:</div></td>
-                                                <td>{order?.discount_type === BACKEND_CONSTANTS.ORDERS.ORDER_DISCOUNT_TYPE.PROMO ? order.total_discount : 0}</td>
+                                                <td>{GENERIC.currency}{order?.discount_type === BACKEND_CONSTANTS.ORDERS.ORDER_DISCOUNT_TYPE.PROMO ? order.total_discount : 0}</td>
                                             </tr>
                                             <tr className={"calculation"}>
                                                 <td colSpan={1}></td>
                                                 <td> <div className={"cal-title"}>Sales Tax:</div></td>
-                                                <td>0</td>
+                                                <td>{GENERIC.currency}{order?.tax || 0}</td>
                                             </tr>
-                                            <tr className={"tr-hr"}>
-                                                <td colSpan={1}></td>
-                                                <td> <div><hr/></div></td>
-                                                <td> <div><hr/></div></td>
-                                            </tr>
+
                                             {order?.transactions.map((transaction)=>{
                                                 if(transaction.id !== order.id){
 

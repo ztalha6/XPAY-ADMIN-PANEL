@@ -23,6 +23,7 @@ import {ITimetable} from "../../../interfaces/IGetEstablishment";
 import {fineTuneDiscountFormData} from "./CreateDiscount";
 import {toast} from "react-toastify";
 import ThemeButton from "../../../components/dashboard/ThemeButton";
+import Heading from "../../../components/dashboard/Heading";
 
 
 export default function EditDiscount() {
@@ -121,27 +122,28 @@ export default function EditDiscount() {
         },
     ]
 
-    useEffect(()=>{
+    useEffect(()=> {
         /*
         * If the type is fixed then applies to should be restricted to all
         * If Applies to is all, then set product empty
         * */
-        if(watchType===DISCOUNT.DISCOUNT_TYPE.FIXED){
-            methods.setValue('applies_to',DISCOUNT.APPLIES_TO.ALL)
+        if (watchType === DISCOUNT.DISCOUNT_TYPE.FIXED) {
+            methods.setValue('applies_to', DISCOUNT.APPLIES_TO.ALL)
         }
 
-        if(watchAppliesTo === DISCOUNT.APPLIES_TO.ALL){
-            methods.setValue('products',[])
+        if (watchAppliesTo === DISCOUNT.APPLIES_TO.ALL) {
+            methods.setValue('products', [])
         }
 
-        if(watchAppliesTo === DISCOUNT.APPLIES_TO.SPECIFIC){
+        if (watchAppliesTo === DISCOUNT.APPLIES_TO.SPECIFIC) {
             setProductsLoader(true)
-            MenuServices.getAllProducts(null,{api_type: 'basic'}).then((res)=>{
+            MenuServices.getAllProducts(null, {establishment_id: establishmentId, api_type: 'basic'}).then((res) => {
                 setProducts(res.data)
                 setProductsLoader(false)
             })
+
         }
-    },[watchType, watchAppliesTo])
+    },[watchType, watchAppliesTo,establishmentId])
     const getSingleDiscount = async () => {
         setLoader(true)
         const res = await DiscountServices.getById(id)
@@ -197,7 +199,7 @@ export default function EditDiscount() {
                                             <Col  md={12} lg={7} xl={8}>
                                                 <Row>
                                                     <Col md={12}>
-                                                        <h2 className={"dash-heading"}>Discount Details</h2>
+                                                        <Heading><h2><span>Discount Details</span></h2></Heading>
                                                     </Col>
                                                 </Row>
                                                 <Row className={"h-100"}>

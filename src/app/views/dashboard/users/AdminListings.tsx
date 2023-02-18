@@ -11,8 +11,7 @@ import "../../../../assets/css/views/dashboard/establishment-listings.scss"
 import {Link} from "react-router-dom";
 import {IUser} from "../../../interfaces/IUser";
 import {UserAuthService} from "../../../services/api-services/user-auth-api.service";
-import {Col, Container, Row} from "react-bootstrap";
-import PermissionBtn from "../../../components/dashboard/PermissionBtn";
+import {Col, Row} from "react-bootstrap";
 import ViewCard from "../../../components/dashboard/ViewCard";
 import {convertTimeZone} from "../../../services/helper/convert-time-zone";
 import {PermissionIcons} from "../../../components/dashboard/PermissionIcons";

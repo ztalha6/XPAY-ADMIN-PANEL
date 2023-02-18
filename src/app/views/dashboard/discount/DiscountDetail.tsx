@@ -13,6 +13,7 @@ import {ITimetable} from "../../../interfaces/IGetEstablishment";
 import DiscountDetailSkeleton from "../../../skeletons/discount/DiscountDetailSkeleton";
 import {convertTimeZone} from "../../../services/helper/convert-time-zone";
 import ThemeButton from "../../../components/dashboard/ThemeButton";
+import Heading from "../../../components/dashboard/Heading";
 
 export default function DiscountDetail() {
     const {setTitle} = useUserContext()
@@ -43,7 +44,7 @@ export default function DiscountDetail() {
                         <div className={"discount-detail"}>
                             <Row>
                                 <Col md={12} lg={7} xl={8}>
-                                    <h2 className={"dash-heading"}>Discount Details</h2>
+                                    <Heading><h2><span>Discount Details</span></h2></Heading>
                                     <Row>
                                         <Col md={6} lg={4}>
                                             <div className={"left-col"}>
@@ -146,7 +147,7 @@ export default function DiscountDetail() {
                                 </Col>
                                 <Col md={12} lg={5} xl={4}>
                                     <div className={"right-col h-100"}>
-                                        <h2 className={"dash-heading"}>Time Schedule</h2>
+                                        <Heading><h2><span>Time Schedule</span></h2></Heading>
                                         <h5>Time Availability:</h5>
                                         <ul className={"time-Schedule"}>
                                             {discount?.entity_timetables?.timetables?.map((time:ITimetable, index)=> {

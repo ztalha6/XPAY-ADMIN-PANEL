@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Controller, useForm} from "react-hook-form";
 import {Col, Form, Row} from "react-bootstrap";
-import {MacAddressValidation, maxLength, Required} from "../../../utils/patterns";
+import {maxLength, Required} from "../../../utils/patterns";
 import TextInput from "../../../components/authentication/TextInput";
 import {useUserContext} from "../../../providers/UserProvider";
 import {ICreateDevice} from "../../../interfaces/IPosDevice";
@@ -77,31 +77,6 @@ export default function EditPosDevice({reloadTable, id, handleClose} :
                             </div>
                         </Col>
                     </Row>
-
-               <Row>
-                   <Col md={12}>
-                       <div className={"dfields menu-manage-fields"}>
-                           <Controller
-                               name="mac_address"
-                               defaultValue={""}
-                               control={control}
-                               rules = {{required : Required, pattern: MacAddressValidation}}
-                               render={({ field }) => (
-                                   <TextInput
-                                       placeholder={"MAC Address"}
-                                       variant={"field-white"}
-                                       label={"MAC Address"}
-                                       labelPos={"out"}
-                                       labelColor={"dark"}
-                                       type={"text"}
-                                       field={field}
-                                       errors ={errors.mac_address}
-                                   />
-                               )}
-                           />
-                       </div>
-                   </Col>
-               </Row>
 
                     <Row>
                         <Col className={"mt-4"} md={12}>

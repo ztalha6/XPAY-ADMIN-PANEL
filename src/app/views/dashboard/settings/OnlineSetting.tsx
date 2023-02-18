@@ -5,6 +5,7 @@ import {maxLength, Required} from "../../../utils/patterns";
 import TextInput from "../../../components/authentication/TextInput";
 import {ISettings} from "../../../interfaces/ISettings";
 import "../../../../assets/css/views/dashboard/online-setting.scss"
+import Heading from "../../../components/dashboard/Heading";
 
 interface IOnline {
     setIsValid:Dispatch<boolean>
@@ -29,7 +30,7 @@ export default function OnlineSetting({setIsValid}:IOnline) {
             <div className={"online-setting"}>
                 <Row>
                     <Col md={4}>
-                        <h3 className={"dash-heading"}>Set Location Radius</h3>
+                        <Heading><h2><span>Set Location Radius</span></h2></Heading>
                         <div className={"radius-field"}>
                             <div className={"dfields"}>
                                 <Controller
@@ -74,7 +75,7 @@ export default function OnlineSetting({setIsValid}:IOnline) {
                         </div>
 
                         <div className={"social-links"}>
-                            <h3 className={"dash-heading"}>Social Networking URL</h3>
+                            <Heading><h2><span>Social Networking URL</span></h2></Heading>
                             <div className={"dfields"}>
                                 <Controller
                                     name="facebook_url"

@@ -5,7 +5,7 @@ import {Col, Row} from "react-bootstrap";
 import {Link, useParams} from "react-router-dom";
 import {IOrderItemList, IOrderList} from "../../../interfaces/IOrder";
 import {OrderServices} from "../../../services/api-services/order.service";
-import {BACKEND_CONSTANTS} from "../../../config/constants";
+import {BACKEND_CONSTANTS, GENERIC} from "../../../config/constants";
 import OrderDetailSkeleton from "../../../skeletons/order-management/OrderDetailSkeleton";
 
 export default function OrderDetail() {
@@ -82,7 +82,7 @@ export default function OrderDetail() {
                                         </li>
                                         <li>
                                             <span>Order Taker</span>
-                                            {singleOrder?.order_taker && <p>{singleOrder?.order_taker.full_name}</p>}
+                                            {singleOrder?.order_taker && <p>{singleOrder?.order_taker.full_name || '-'}</p>}
                                         </li>
                                         <li>
                                             <span>Transactions</span>
@@ -112,7 +112,7 @@ export default function OrderDetail() {
                                                     <td>{item.product.name}</td>
                                                     <td>{item.instruction}</td>
                                                     <td>{item.purchased_qty}</td>
-                                                    <td>{item.payable_price}</td>
+                                                    <td>{GENERIC.currency}{ item.payable_price}</td>
                                                 </tr>
                                             )
                                         })}
@@ -121,43 +121,43 @@ export default function OrderDetail() {
                                             <td>
                                                 <div className={"cal-title"}>Sub Total:</div>
                                             </td>
-                                            <td>{singleOrder?.gross_amount}</td>
+                                            <td>{GENERIC.currency}{singleOrder?.gross_amount}</td>
                                         </tr>
                                         <tr className={"calculation"}>
                                             <td colSpan={2}></td>
                                             <td><div className={"cal-title"}>Manual Discount:</div></td>
-                                            <td>{singleOrder?.discount_type === BACKEND_CONSTANTS.ORDERS.ORDER_DISCOUNT_TYPE.DISCOUNT ? singleOrder?.total_discount : 0 }</td>
+                                            <td>{GENERIC.currency}{singleOrder?.discount_type === BACKEND_CONSTANTS.ORDERS.ORDER_DISCOUNT_TYPE.DISCOUNT ? singleOrder?.total_discount : 0 }</td>
                                         </tr>
 
                                         <tr className={"calculation"}>
                                             <td colSpan={2}></td>
                                             <td> <div className={"cal-title"}>Service Charges:</div></td>
-                                            <td>{singleOrder?.service_charges}</td>
+                                            <td>{GENERIC.currency}{singleOrder?.service_charges}</td>
                                         </tr>
                                         <tr className={"calculation"}>
                                             <td colSpan={2}></td>
                                             <td> <div className={"cal-title"}>Tip:</div></td>
-                                            <td>{singleOrder?.tip}</td>
+                                            <td>{GENERIC.currency}{singleOrder?.tip || 0}</td>
                                         </tr>
                                         <tr className={"calculation"}>
                                             <td colSpan={2}></td>
                                             <td><div className={"cal-title"}>Delivery Charges:</div></td>
-                                            <td>0</td>
+                                            <td>{GENERIC.currency}{singleOrder?.delivery_charges || 0}</td>
                                         </tr>
                                         <tr className={"calculation"}>
                                             <td colSpan={2}></td>
                                             <td> <div className={"cal-title"}>Promo Code Discount:</div></td>
-                                            <td>{singleOrder?.discount_type === BACKEND_CONSTANTS.ORDERS.ORDER_DISCOUNT_TYPE.PROMO ? singleOrder?.total_discount : 0}</td>
+                                            <td>{GENERIC.currency}{singleOrder?.discount_type === BACKEND_CONSTANTS.ORDERS.ORDER_DISCOUNT_TYPE.PROMO ? singleOrder?.total_discount : 0}</td>
                                         </tr>
                                         <tr className={"calculation"}>
                                             <td colSpan={2}></td>
                                             <td> <div className={"cal-title"}>Sales Tax:</div></td>
-                                            <td>0</td>
+                                            <td>{GENERIC.currency}{singleOrder?.tax}</td>
                                         </tr>
                                         <tr className={"calculation total"}>
                                             <td colSpan={2}></td>
                                             <td> <div className={"cal-title"}>Total:</div></td>
-                                            <td className={"total-count"}>Rs {singleOrder?.net_amount}</td>
+                                            <td className={"total-count"}>{GENERIC.currency}{singleOrder?.net_amount}</td>
                                         </tr>
                                         </tbody>
                                     </table>

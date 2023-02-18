@@ -11,6 +11,7 @@ import {IoMailUnreadOutline} from "react-icons/io5"
 import {IRestaurantListing} from "../../../interfaces/IRestaurant";
 import {RestaurantService} from "../../../services/api-services/restaurant.service";
 import {useParams} from "react-router-dom";
+import Heading from "../../../components/dashboard/Heading";
 
 export default function RestaurantDetails() {
     const {setTitle} = useUserContext()
@@ -66,7 +67,7 @@ export default function RestaurantDetails() {
                     </Row>
                     <Row>
                         <Col md={5}>
-                            <h2 className={"dash-heading"}>Other Details</h2>
+                            <Heading><h2><span>Other Details</span></h2></Heading>
                             <div className={"other-detail-box"}>
                                 <p>Email: <span>{restaurant?.email || '-'}</span></p>
                                 <p>Phone: <span>{restaurant?.phone || '-'}</span></p>
@@ -74,7 +75,7 @@ export default function RestaurantDetails() {
                             </div>
                         </Col>
                         <Col md={7}>
-                            <h2 className={"dash-heading"}>Settings</h2>
+                            <Heading><h2><span>Settings</span></h2></Heading>
                             <div className={"setting-box"}>
                                 <Accordion defaultActiveKey="0">
                                     <Accordion.Item eventKey="0">

@@ -7,21 +7,14 @@ import {IReportList, IReportsFilters} from "../../../../interfaces/IReports";
 import {Tabs} from "antd";
 import "../../../../../assets/css/views/dashboard/sales-summary.scss"
 import {IoMdArrowDropdown} from "react-icons/io"
-import {
-    ExcelIcon,
-    ReportCancel,
-    ReportExchange,
-    ReportList,
-    ReportMade,
-    ReportRefund,
-    ReportUnmade
-} from "../../../../../assets/images/icons/menu-icons/performances"
+import {ExcelIcon, ReportMade} from "../../../../../assets/images/icons/menu-icons/performances"
 import BarChart from "../../../../components/charts/BarChart";
 import {ReportService} from "../../../../services/api-services/report.service";
 import ThemeButton from "../../../../components/dashboard/ThemeButton";
 import SalesSummaryFilters from "./SalesSummaryFilters";
 import {FaFilter} from "react-icons/fa";
 import ThemeModal from "../../../../components/Modal";
+import SalesSummarySkeleton from "../../../../skeletons/reports/SalesSummarySkeleton";
 
 // Charts js
 
@@ -208,6 +201,7 @@ export default function SalesSummary() {
     const filterModal =()=> {
         setFilterPopup(true)
     }
+
     return(
         <>
             <div className={"sales-summary"}>
@@ -227,481 +221,524 @@ export default function SalesSummary() {
                                     children={  <SalesSummaryFilters loading={filterLoading}/>} />
                     </Form>
                 </FormProvider>
-                <hr/>
-                <Row>
-                    <Col md={12}>
-                        <div className={"theme-tabs"}>
-                            <Tabs defaultActiveKey="1" tabBarExtraContent={operations}>
-                                <TabPane tab="All" key="1">
-                                    <Row>
-                                        <Col md={12}>
-                                            <BarChart xLabels={labels} dataSets={AllChart}/>
-                                        </Col>
-                                    </Row>
-                                </TabPane>
-                                <TabPane tab="Dine-in" key="2">
-                                    <Row>
-                                        <Col md={12}>
-                                            <BarChart xLabels={labels} dataSets={DineChart}/>
-                                        </Col>
-                                    </Row>
-                                </TabPane>
-                                <TabPane tab="Takeaway" key="3">
-                                    <Row>
-                                        <Col md={12}>
-                                            <BarChart xLabels={labels} dataSets={TakeawayChart}/>
-                                        </Col>
-                                    </Row>
-                                </TabPane>
-                                <TabPane tab="Delivery" key="4">
-                                    <Row>
-                                        <Col md={12}>
-                                            <BarChart xLabels={labels} dataSets={DeliveryChart}/>
-                                        </Col>
-                                    </Row>
-                                </TabPane>
-                            </Tabs>
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={7}>
-                        <div className={"left-col"}>
-                            <div className={"report-section"}>
-                                <h3 className={"report-heading"}>Sales</h3>
-                                <ul className={""}>
-                                    <li>
-                                        <div className={"report-box"}>
-                                            <div className={"report-details"}>
-                                                <h4>Net Sales
-                                                </h4>
-                                                <p>{reports?.net_amount.current}</p>
-                                            </div>
-                                            <div className={"report-stats up"}>
-                                                <div className={"icon"}>
-                                                    <IoMdArrowDropdown/>
+                {!loading ?
+                    <>
+                        <Row>
+                            <Col md={12}>
+                                <div className={"report-section"}>
+                                    <div className={"theme-tabs"}>
+                                        <Tabs defaultActiveKey="1" tabBarExtraContent={operations}>
+                                            <TabPane tab="All" key="1">
+                                                <Row>
+                                                    <Col md={12}>
+                                                        <BarChart xLabels={labels} dataSets={AllChart}/>
+                                                    </Col>
+                                                </Row>
+                                            </TabPane>
+                                            <TabPane tab="Dine-in" key="2">
+                                                <Row>
+                                                    <Col md={12}>
+                                                        <BarChart xLabels={labels} dataSets={DineChart}/>
+                                                    </Col>
+                                                </Row>
+                                            </TabPane>
+                                            <TabPane tab="Takeaway" key="3">
+                                                <Row>
+                                                    <Col md={12}>
+                                                        <BarChart xLabels={labels} dataSets={TakeawayChart}/>
+                                                    </Col>
+                                                </Row>
+                                            </TabPane>
+                                            <TabPane tab="Delivery" key="4">
+                                                <Row>
+                                                    <Col md={12}>
+                                                        <BarChart xLabels={labels} dataSets={DeliveryChart}/>
+                                                    </Col>
+                                                </Row>
+                                            </TabPane>
+                                        </Tabs>
+                                    </div>
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row className={"mt-2"}>
+                            <Col md={6}>
+                                <div className={"report-section"}>
+                                    <h3 className={"report-heading"}><span>Sales</span></h3>
+                                    <ul className={""}>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Net Sales</h4>
+                                                    <p>{reports?.net_amount.current}</p>
+                                                    <div className={"report-stats up"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>{reports?.net_amount.diff}</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className={"num"}>
-                                                    <span>{reports?.net_amount.diff}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={"report-box"}>
-                                            <div className={"report-details"}>
-                                                <h4>Gross Sales</h4>
-                                                <p>{reports?.gross_amount.current}
-                                                </p>
-                                            </div>
-                                            <div className={"report-stats up"}>
-                                                <div className={"icon"}>
-                                                    <IoMdArrowDropdown/>
-                                                </div>
-                                                <div className={"num"}>
-                                                    <span>{reports?.gross_amount.diff}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className={"report-section"}>
-                                <h3 className={"report-heading"}>Service Charges</h3>
-                                <ul className={""}>
-                                    <li>
-                                        <div className={"report-box"}>
-                                            <div className={"report-details"}>
-                                                <h4>Total Service  Charges</h4>
-                                                <p>{reports?.service_charges.current}</p>
-                                            </div>
-                                            <div className={"report-stats up"}>
-                                                <div className={"icon"}>
-                                                    <IoMdArrowDropdown/>
-                                                </div>
-                                                <div className={"num"}>
-                                                    <span>{reports?.service_charges.diff}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={"report-box"}>
-                                            <div className={"report-details"}>
-                                                <h4>Tip By Cash</h4>
-                                                <p>{reports?.tip.current}</p>
-                                            </div>
-                                            <div className={"report-stats up"}>
-                                                <div className={"icon"}>
-                                                    <IoMdArrowDropdown/>
-                                                </div>
-                                                <div className={"num"}>
-                                                    <span>{reports?.tip.diff}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={"report-box"}>
-                                            <div className={"report-details"}>
-                                                <h4>Tip By Card</h4>
-                                                <p>0</p>
-                                            </div>
-                                            <div className={"report-stats up"}>
-                                                <div className={"icon"}>
-                                                    <IoMdArrowDropdown/>
-                                                </div>
-                                                <div className={"num"}>
-                                                    <span>0%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className={"report-section"}>
-                                <h3 className={"report-heading"}>Discounts</h3>
-                                <ul className={""}>
-                                    <li>
-                                        <div className={"report-box"}>
-                                            <div className={"report-details"}>
-                                                <h4>Manual Discount</h4>
-                                                <p>{reports?.discount.current}</p>
-                                            </div>
-                                            <div className={"report-stats up"}>
-                                                <div className={"icon"}>
-                                                    <IoMdArrowDropdown/>
-                                                </div>
-                                                <div className={"num"}>
-                                                    <span>{reports?.discount.diff}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={"report-box"}>
-                                            <div className={"report-details"}>
-                                                <h4>Promotional Discount
-                                                </h4>
-                                                <p>{reports?.promo_discount.current}</p>
-                                            </div>
-                                            <div className={"report-stats up"}>
-                                                <div className={"icon"}>
-                                                    <IoMdArrowDropdown/>
-                                                </div>
-                                                <div className={"num"}>
-                                                    <span>{reports?.promo_discount.diff}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className={"report-section"}>
-                                <h3 className={"report-heading"}>Payment</h3>
-                                <ul className={""}>
-                                    <li>
-                                        <div className={"report-box"}>
-                                            <div className={"report-details"}>
-                                                <h4>Cash</h4>
-                                                <p>{reports?.cash_amount_received.current}
-                                                </p>
-                                            </div>
-                                            <div className={"report-stats up"}>
-                                                <div className={"icon"}>
-                                                    <IoMdArrowDropdown/>
-                                                </div>
-                                                <div className={"num"}>
-                                                    <span>{reports?.cash_amount_received.diff}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={"report-box"}>
-                                            <div className={"report-details"}>
-                                                <h4>Credit Card</h4>
-                                                <p>{reports?.card_amount_received.current}
-                                                </p>
-                                            </div>
-                                            <div className={"report-stats up"}>
-                                                <div className={"icon"}>
-                                                    <IoMdArrowDropdown/>
-                                                </div>
-                                                <div className={"num"}>
-                                                    <span>{reports?.card_amount_received.diff}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className={"report-section"}>
-                                <h3 className={"report-heading"}>Guest</h3>
-                                <ul className={""}>
-                                    <li>
-                                        <div className={"report-box"}>
-                                            <div className={"report-details"}>
-                                                <h4>Total Guest</h4>
-                                                <p>0
-                                                </p>
-                                            </div>
-                                            <div className={"report-stats up"}>
-                                                <div className={"icon"}>
-                                                    <IoMdArrowDropdown/>
-                                                </div>
-                                                <div className={"num"}>
-                                                    <span>0%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={"report-box"}>
-                                            <div className={"report-details"}>
-                                                <h4>Avg. Amount per Guest</h4>
-                                                <p>0</p>
-                                            </div>
-                                            <div className={"report-stats up"}>
-                                                <div className={"icon"}>
-                                                    <IoMdArrowDropdown/>
-                                                </div>
-                                                <div className={"num"}>
-                                                    <span>0%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={"report-box"}>
-                                            <div className={"report-details"}>
-                                                <h4>Avg. No# Guest
-                                                </h4>
-                                                <p>0</p>
-                                            </div>
-                                            <div className={"report-stats up"}>
-                                                <div className={"icon"}>
-                                                    <IoMdArrowDropdown/>
-                                                </div>
-                                                <div className={"num"}>
-                                                    <span>0%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
 
-                            <div className={"report-section"}>
-                                <h3 className={"report-heading"}>Open Check</h3>
-                                <ul className={""}>
-                                    <li>
-                                        <div className={"report-box"}>
-                                            <div className={"report-details"}>
-                                                <h4>Open Check Count</h4>
-                                                <p>0
-                                                </p>
                                             </div>
-                                            <div className={"report-stats up"}>
-                                                <div className={"icon"}>
-                                                    <IoMdArrowDropdown/>
-                                                </div>
-                                                <div className={"num"}>
-                                                    <span>0%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={"report-box"}>
-                                            <div className={"report-details"}>
-                                                <h4>Open Check Amount</h4>
-                                                <p>0
-                                                </p>
-                                            </div>
-                                            <div className={"report-stats up"}>
-                                                <div className={"icon"}>
-                                                    <IoMdArrowDropdown/>
-                                                </div>
-                                                <div className={"num"}>
-                                                    <span>0%</span>
+                                        </li>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Gross Sales</h4>
+                                                    <p>{reports?.gross_amount.current}
+                                                    </p>
+                                                    <div className={"report-stats down"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>{reports?.gross_amount.diff}</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className={"report-stats-section"}>
-                                <div className={"report-stats-box"}>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </Col>
+                            <Col md={6}>
+                                <div className={"report-section"}>
+                                    <h3 className={"report-heading"}><span>Service Charges</span></h3>
+                                    <ul className={""}>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Total Service  Charges</h4>
+                                                    <p>{reports?.service_charges.current}</p>
+                                                    <div className={"report-stats up"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>{reports?.service_charges.diff}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Tip By Cash</h4>
+                                                    <p>{reports?.tip.current}</p>
+                                                    <div className={"report-stats up"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>{reports?.tip.diff}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Tip By Card</h4>
+                                                    <p>0</p>
+                                                    <div className={"report-stats up"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>0%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </Col>
+                            <Col md={6}>
+                                <div className={"report-section"}>
+                                    <h3 className={"report-heading"}><span>Discounts</span></h3>
+                                    <ul className={""}>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Manual Discount</h4>
+                                                    <p>{reports?.discount.current}</p>
+                                                    <div className={"report-stats up"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>{reports?.discount.diff}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Promotional Discount
+                                                    </h4>
+                                                    <p>{reports?.promo_discount.current}</p>
+                                                    <div className={"report-stats down"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>{reports?.promo_discount.diff}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </Col>
+                            <Col md={6}>
+                                <div className={"report-section"}>
+                                    <h3 className={"report-heading"}><span>Payment</span></h3>
+                                    <ul className={""}>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Cash</h4>
+                                                    <p>{reports?.cash_amount_received.current}
+                                                    </p>
+                                                    <div className={"report-stats up"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>{reports?.cash_amount_received.diff}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Credit Card</h4>
+                                                    <p>{reports?.card_amount_received.current}
+                                                    </p>
+                                                    <div className={"report-stats down"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>{reports?.card_amount_received.diff}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </Col>
+                            <Col md={6}>
+                                <div className={"report-section"}>
+                                    <h3 className={"report-heading"}><span>Guest</span></h3>
+                                    <ul className={""}>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Total Guest</h4>
+                                                    <p>0
+                                                    </p>
+                                                    <div className={"report-stats up"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>0%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Avg. Amount per Guest</h4>
+                                                    <p>0</p>
+                                                    <div className={"report-stats up"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>0%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Avg. No# Guest
+                                                    </h4>
+                                                    <p>0</p>
+                                                    <div className={"report-stats down"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>0%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </Col>
+                            <Col md={6}>
+                                <div className={"report-section"}>
+                                    <h3 className={"report-heading"}><span>Open Check</span></h3>
+                                    <ul className={""}>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Open Check Count</h4>
+                                                    <p>0</p>
+                                                    <div className={"report-stats down"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>0%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Open Check Amount</h4>
+                                                    <p>0</p>
+                                                    <div className={"report-stats up"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>0%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col md={5}>
-                        <div className={"right-col"}>
-                            <div className={"report-section-right"}>
-                                <h3 className={"report-heading"}>Dine-in</h3>
-                                <ul className={""}>
-                                    <li>
-                                        <div className={"stats-boxes "}>
-                                            <h5>Dine-In Sales</h5>
-                                            <p>{reports?.dinein_net_amount.current}</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={"stats-boxes"}>
-                                            <h5>Check</h5>
-                                            <p>{reports?.dinein_check.current}</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={"stats-boxes"}>
-                                            <h5>Average</h5>
-                                            <p>{reports?.dinein_avg_amount.current}</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className={"report-section-right"}>
-                                <h3 className={"report-heading"}>Takeaway</h3>
-                                <ul className={""}>
-                                    <li>
-                                        <div className={"stats-boxes takeaway"}>
-                                            <h5>Take away Sales</h5>
-                                            <p>{reports?.takeaway_net_amount.current}</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={"stats-boxes takeaway"}>
-                                            <h5>Check</h5>
-                                            <p>{reports?.takeaway_check.current}</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={"stats-boxes takeaway"}>
-                                            <h5>Average</h5>
-                                            <p>{reports?.takeaway_avg_amount.current}</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className={"report-section-right"}>
-                                <h3 className={"report-heading"}>Delivery</h3>
-                                <ul className={""}>
-                                    <li>
-                                        <div className={"stats-boxes delivery"}>
-                                            <h5>Delivery</h5>
-                                            <p>{reports?.delivery_net_amount.current}</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={"stats-boxes delivery"}>
-                                            <h5>Check</h5>
-                                            <p>{reports?.delivery_check.current}</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className={"stats-boxes delivery"}>
-                                            <h5>Average</h5>
-                                            <p>{reports?.delivery_avg_amount.current}</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className={"report-section-right"}>
-                                <h3 className={"report-heading"}>Sales Category</h3>
-                                <div className={"category-box"}>
-                                    <div className={"icon-box"}>
-                                        {ReportMade}
-                                    </div>
-                                    <div className={"content"}>
-                                        <h6>Food</h6>
-                                        <p>8,15,856 <span>40%</span></p>
-                                    </div>
+                            </Col>
+                            <Col md={6}>
+                                <div className={"report-section"}>
+                                    <h3 className={"report-heading"}><span>Dine-in</span></h3>
+                                    <ul className={""}>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4> Dine-In Sales</h4>
+                                                    <p>{reports?.dinein_net_amount.current}</p>
+                                                    <div className={"report-stats down"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>0%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Check</h4>
+                                                    <p>{reports?.dinein_check.current}</p>
+                                                    <div className={"report-stats up"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>0%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Average</h4>
+                                                    <p>{reports?.dinein_avg_amount.current}</p>
+                                                    <div className={"report-stats up"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>0%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <h3 className={"report-heading mt-4"}><span>Takeaway</span></h3>
+                                    <ul className={""}>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Take away Sales</h4>
+                                                    <p>{reports?.takeaway_net_amount.current}</p>
+                                                    <div className={"report-stats down"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>0%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Check</h4>
+                                                    <p>{reports?.takeaway_check.current}</p>
+                                                    <div className={"report-stats up"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>0%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Average</h4>
+                                                    <p>{reports?.takeaway_avg_amount.current}</p>
+                                                    <div className={"report-stats up"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>0%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                    <h3 className={"report-heading mt-4"}><span>Delivery</span></h3>
+                                    <ul className={""}>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Delivery Sales</h4>
+                                                    <p>{reports?.delivery_net_amount.current}</p>
+                                                    <div className={"report-stats down"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>0%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Check</h4>
+                                                    <p>{reports?.delivery_check.current}</p>
+                                                    <div className={"report-stats up"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>0%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className={"report-box"}>
+                                                <div className={"report-details"}>
+                                                    <h4>Average</h4>
+                                                    <p>{reports?.delivery_avg_amount.current}</p>
+                                                    <div className={"report-stats up"}>
+                                                        <div className={"icon"}>
+                                                            <IoMdArrowDropdown/>
+                                                        </div>
+                                                        <div className={"num"}>
+                                                            <span>0%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div className={"category-box"}>
-                                    <div className={"icon-box"}>
-                                        {ReportMade}
-                                    </div>
-                                    <div className={"content"}>
-                                        <h6>Beragres</h6>
-                                        <p>6,18,484<span>27%</span></p>
-                                    </div>
-                                </div>
-                                <div className={"category-box"}>
-                                    <div className={"icon-box"}>
-                                        {ReportMade}
-                                    </div>
-                                    <div className={"content"}>
-                                        <h6>Desserts</h6>
-                                        <p>8,15,856<span>30%</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={"report-section-right"}>
-                                <div className={"order-boxes-section"}>
-                                    <div className={"order-boxes"}>
+                            </Col>
+
+                            <Col md={6}>
+                                <div className={"report-section"}>
+                                    <h3 className={"report-heading"}><span>Sales Category</span></h3>
+                                    <div className={"category-box"}>
                                         <div className={"icon-box"}>
                                             {ReportMade}
                                         </div>
                                         <div className={"content"}>
-                                            <h6>Made</h6>
-                                            <p>2581</p>
+                                            <h6>Food</h6>
+                                            <p>8,15,856 <span>40%</span></p>
                                         </div>
                                     </div>
-                                    <div className={"order-boxes"}>
+                                    <div className={"category-box"}>
                                         <div className={"icon-box"}>
-                                            {ReportUnmade }
+                                            {ReportMade}
                                         </div>
                                         <div className={"content"}>
-                                            <h6>Made</h6>
-                                            <p>2581</p>
+                                            <h6>Beragres</h6>
+                                            <p>6,18,484<span>27%</span></p>
                                         </div>
                                     </div>
-                                    <div className={"order-boxes"}>
+                                    <div className={"category-box"}>
                                         <div className={"icon-box"}>
-                                            {ReportList}
+                                            {ReportMade}
                                         </div>
                                         <div className={"content"}>
-                                            <h6>Made</h6>
-                                            <p>2581</p>
+                                            <h6>Desserts</h6>
+                                            <p>8,15,856<span>30%</span></p>
                                         </div>
                                     </div>
                                 </div>
-                                <div className={"order-boxes-section"}>
-                                    <div className={"order-boxes"}>
-                                        <div className={"icon-box"}>
-                                            {ReportCancel}
-                                        </div>
-                                        <div className={"content"}>
-                                            <h6>Made</h6>
-                                            <p>2581</p>
-                                        </div>
-                                    </div>
-                                    <div className={"order-boxes"}>
-                                        <div className={"icon-box"}>
-                                            {ReportExchange}
-                                        </div>
-                                        <div className={"content"}>
-                                            <h6>Made</h6>
-                                            <p>2581</p>
-                                        </div>
-                                    </div>
-                                    <div className={"order-boxes"}>
-                                        <div className={"icon-box"}>
-                                            {ReportRefund}
-                                        </div>
-                                        <div className={"content"}>
-                                            <h6>Made</h6>
-                                            <p>2581</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
+                            </Col>
+                        </Row>
+                    </>
+                    : <SalesSummarySkeleton/>
+
+                }
             </div>
         </>
     )

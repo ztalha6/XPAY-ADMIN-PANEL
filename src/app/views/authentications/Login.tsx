@@ -15,9 +15,10 @@ import Logosmall from "../../../assets/images/logosmall.svg";
 import {Link, useNavigate} from "react-router-dom";
 import {IAuth} from "../../interfaces/IAuth";
 import {UserAuthService} from "../../services/api-services/user-auth-api.service";
-// import {getTokens} from "../../../app/services/helper/firebase"
+import {getTokens} from "../../../app/services/helper/firebase"
 import ThemeButton from "../../components/dashboard/ThemeButton";
 import {BACKEND_CONSTANTS, ROLES} from "../../config/constants";
+import {toast} from "react-toastify";
 
 
 export default function Login() {
@@ -47,13 +48,13 @@ export default function Login() {
         setLoader(true)
 
         let deviceToken = null;
-        // let permission = await window.Notification.requestPermission();
-        //
-        // if(permission === "granted"){
-        //     deviceToken = await getTokens();
-        //     if(!deviceToken)
-        //         toast.error("Unable to get device token!")
-        // }
+        let permission = await window.Notification.requestPermission();
+
+        if(permission === "granted"){
+            deviceToken = await getTokens();
+            if(!deviceToken)
+                toast.error("Unable to get device token!")
+        }
 
         data.device_type = 'web'
         data.device_token = deviceToken || "web"

@@ -24,6 +24,7 @@ import ThemeButton from "../../../../components/dashboard/ThemeButton";
 import CustomMenuDetailSkeleton from "../../../../skeletons/menu-management/custom-menu/CustomMenuDetailSkeleton";
 import {MenuServices} from "../../../../services/api-services/menu-services";
 import {IMenu} from "../../../../interfaces/IMenu";
+import Heading from "../../../../components/dashboard/Heading";
 
 export default function EditCustomMenu() {
     const { TabPane } = Tabs;
@@ -169,7 +170,7 @@ export default function EditCustomMenu() {
                             <Row className={"h-100"}>
                                 <Col  md={12} lg={6} xl={6} xxl={3}>
                                     <div className={"left-col"}>
-                                        <h2 className={"dash-heading"}>Create Custom Menu</h2>
+                                        <Heading><h2><span>Create Custom Menu</span></h2></Heading>
                                         <div className={"createuser-fields dfields"}>
                                             <Controller
                                                 name="name"

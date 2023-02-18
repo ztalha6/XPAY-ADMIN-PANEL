@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Col, Container, Row} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import "../../../../assets/css/views/dashboard/single-product.scss";
 import {useParams} from "react-router-dom";
 import {MenuServices} from "../../../services/api-services/menu-services";
@@ -10,6 +10,7 @@ import {BsChevronRight} from "react-icons/bs";
 import {ModifierClassServices} from "../../../services/api-services/modifer-class-services";
 import ViewCard from "../../../components/dashboard/ViewCard";
 import {convertTimeZone} from "../../../services/helper/convert-time-zone";
+import Heading from "../../../components/dashboard/Heading";
 
 export default function SingleProduct() {
 
@@ -36,9 +37,7 @@ export default function SingleProduct() {
                 <div className={"single-product"}>
                     <Row>
                             <Col md={12} className={"mb-3"}>
-                                <h2 className={"dash-heading"}>
-                                    Product Details
-                                </h2>
+                                <Heading><h2><span> Product Details</span></h2></Heading>
                             </Col>
                         </Row>
                     <Row>

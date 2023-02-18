@@ -17,6 +17,7 @@ import {PAGINATION} from "../../../config/constants";
 import {IDatatableParams} from "../../../interfaces/IDatatable";
 import {FilterValue, SorterResult} from "antd/lib/table/interface";
 import CustomerDetailSkeleton from "../../../skeletons/customer-management/CustomerDetailSkeleton";
+import Heading from "../../../components/dashboard/Heading";
 
 interface OrderDetailsTable {
     key: string;
@@ -199,7 +200,7 @@ export default function CustomerDetails() {
                 <div className={"customer-detail"}>
                     <Row>
                         <Col md={12}>
-                            <h2 className={"dash-heading"}>Customer Detail</h2>
+                            <Heading><h2><span>Customer Detail</span></h2></Heading>
                             <div className={"user-detail"}>
                                 <ul>
                                     <li><BiUser/>{customer?.full_name || '-'}</li>
@@ -246,7 +247,7 @@ export default function CustomerDetails() {
                             </ul>
                         </Col>
                         <Col md={12}>
-                            <h2 className={"dash-heading"}>Orders via Platform</h2>
+                            <Heading><h2><span>Orders via Platform</span></h2></Heading>
                             <ul className={"cd-detail"}>
                                 <li>
                                     <div className={"rd-box"}>
@@ -271,7 +272,7 @@ export default function CustomerDetails() {
                     </Row>
                     <Row>
                         <Col lg={12} xl={6}>
-                            <h2 className={"dash-heading"}>Activity</h2>
+                            <Heading><h2><span>Activity</span></h2></Heading>
                             <Table
                                 columns={recentOrdersTable}
                                 dataSource={customerOrders}
@@ -281,7 +282,7 @@ export default function CustomerDetails() {
                             />
                         </Col>
                         <Col lg={12} xl={6}>
-                            <h2 className={"dash-heading"}>Order Details</h2>
+                            <Heading><h2><span>Order Details</span></h2></Heading>
                             <Table
                                 columns={OrderDetails}
                                 dataSource={customerOrderItems}

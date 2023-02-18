@@ -17,7 +17,10 @@ export const EmailValidation = {
 export const MacAddressValidation = {
     value: new RegExp(/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/),
     message: 'Please enter valid mac address.',
-
+};
+export const PercentageValidation = {
+    value: new RegExp(/^(100(?:\.0{1,2})?|0*?\.\d{1,2}|\d{1,2}(?:\.\d{1,2})?)$/),
+    message: 'Not valid.',
 };
 
 

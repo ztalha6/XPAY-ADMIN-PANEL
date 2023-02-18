@@ -5,8 +5,8 @@ import {UseFormGetValues, UseFormSetValue} from "react-hook-form/dist/types/form
 import AWS from "aws-sdk";
 import {BACKEND_CONSTANTS} from "../../config/constants";
 import ImgCrop from "antd-img-crop";
-import {optionCSS} from "react-select/dist/declarations/src/components/Option";
 import "../../../assets/css/components/image-upload.scss"
+
 interface IUploadBox {
     maxCount:number
     setValue: UseFormSetValue<any>
@@ -101,10 +101,11 @@ export default function ImageUpload({maxCount, setValue, fieldName, body, autoHi
                 } else {
                     console.log("uploaded successfully")
                     onSuccess("Ok", file);
-                    if(maxCount > 1 && Array.isArray(value) && getValues){
+                    if(maxCount > 1 && Array.isArray(value) && getValues && getValues(fieldName)){
                         /*
                         * For multiple images - Has Many relationship
                         * */
+
                         setValue(fieldName, [
                             ...getValues(fieldName),
                             {
@@ -146,7 +147,6 @@ export default function ImageUpload({maxCount, setValue, fieldName, body, autoHi
     };
 
     useEffect(()=> {
-
         if(maxCount > 1 && Array.isArray(value)) {
             /*
             * For multiple images - Has Many relationship
@@ -179,7 +179,7 @@ export default function ImageUpload({maxCount, setValue, fieldName, body, autoHi
         }
 
 
-    },[value])
+    },[value?.length])
 
     return(
         <div className={"image-upload"}>

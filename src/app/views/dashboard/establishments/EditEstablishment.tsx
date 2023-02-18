@@ -3,7 +3,7 @@ import {Col, Form, Row} from "react-bootstrap";
 import TextInput from "../../../components/authentication/TextInput";
 import "../../../../assets/css/views/dashboard/establishment.scss";
 import {Controller, FormProvider, useForm} from "react-hook-form";
-import {maxLength, MaxLength, minLength, MinLength, Required} from "../../../utils/patterns";
+import {maxLength, MaxLength, minLength, MinLength, PhoneValidation, Required} from "../../../utils/patterns";
 import {ICreateEstablishment, IGetEstablishment, ITimetable} from "../../../interfaces/IGetEstablishment";
 import {EstablishmentServices} from "../../../services/api-services/establishment.services";
 import {useNavigate, useParams} from "react-router-dom";
@@ -19,6 +19,8 @@ import moment from "moment";
 import ThemeButton from "../../../components/dashboard/ThemeButton";
 import {useUserContext} from "../../../providers/UserProvider";
 import EditEstablishmentSkeleton from "../../../skeletons/establishment/EditEstablishmentSkeleton";
+import Heading from "../../../components/dashboard/Heading";
+import PhoneInput from "../../../components/authentication/PhoneInput";
 
 export default function EditEstablishment() {
     const [change,setChange] = useState<boolean>(false)
@@ -185,7 +187,7 @@ export default function EditEstablishment() {
                                 <Row className={"h-100"}>
                                     <Col sm={12} md={6} lg={5}>
                                         <div className={"lef-col"}>
-                                            <h2 className={"dash-heading"}>Establishment</h2>
+                                            <Heading><h2><span>Establishment</span></h2></Heading>
                                             <div className={"dfields establishment-fields"}>
                                                 <input type="hidden" value={20.34334} {...methods.register("latitude")}/>
                                                 <input type="hidden" value={10.34234} {...methods.register("longitude")}/>
@@ -230,6 +232,28 @@ export default function EditEstablishment() {
                                                     )}
                                                 />
                                             </div>
+
+                                            <div className={"dfields establishment-fields"}>
+                                                <Controller
+                                                    name="phone"
+                                                    defaultValue={""}
+                                                    control={methods.control}
+                                                    rules = {{required:Required , pattern:PhoneValidation }}
+                                                    render={({ field }) => (
+                                                        <PhoneInput
+                                                            variant="field-white"
+                                                            labelPos="out"
+                                                            labelColor="dark"
+                                                            label={"Phone"}
+                                                            type={"text"}
+                                                            placeholder="Phone"
+                                                            errors ={methods.formState.errors.phone}
+                                                            field={field}
+                                                        />
+                                                    )}
+                                                />
+                                            </div>
+
                                             <div className={"dfields establishment-fields"}>
                                                 <div className={"location-field"}>
                                                     <Controller

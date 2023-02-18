@@ -20,6 +20,7 @@ import {toast} from "react-toastify";
 import {CustomMenuServices} from "../../../../services/api-services/custom-menu-service";
 import ViewCard from "../../../../components/dashboard/ViewCard";
 import ThemeButton from "../../../../components/dashboard/ThemeButton";
+import Heading from "../../../../components/dashboard/Heading";
 
 export default function CreateCustomMenu() {
 
@@ -105,7 +106,7 @@ export default function CreateCustomMenu() {
                             <Row className={"h-100"}>
                                     <Col md={12} lg={6} xl={6} xxl={3}>
                                         <div className={"left-col"}>
-                                            <h2 className={"dash-heading"}>Create Custom Menu</h2>
+                                            <Heading><h2><span>Create Custom Menu</span></h2></Heading>
                                             <div className={"custom-menu-fields dfields"}>
                                                 <Controller
                                                     name="name"

@@ -3,7 +3,7 @@ import {Col, Row} from "react-bootstrap/";
 import type {RadioChangeEvent} from 'antd';
 import {Radio, Space} from 'antd';
 import {Controller, useFormContext} from "react-hook-form";
-import {maxLength, Required} from "../../../utils/patterns";
+import {maxLength, PercentageValidation, Required} from "../../../utils/patterns";
 import TextInput from "../../../components/authentication/TextInput";
 import "../../../../assets/css/views/dashboard/pos-setting.scss"
 import {ISettings} from "../../../interfaces/ISettings";
@@ -72,7 +72,7 @@ export default function PosSetting({setIsValid}:IPOS) {
                     <Col md={4}>
                         <div className={""}>
                             <div className={"dfields pos-logout-field"}>
-                                <h3 className={"dash-heading"}>No Activity Log out</h3>
+                                <h3 className={"pos-heading"}>No Activity Log out</h3>
                                 <Radio.Group onChange={onChange} value={logoutOption}>
                                     <Space direction="vertical">
                                         <Radio value={1}>Never automatically log out</Radio>
@@ -119,12 +119,11 @@ export default function PosSetting({setIsValid}:IPOS) {
                                     </Space>
                                 </Radio.Group>
                             </div>
-
                             <div className={"dfields"}>
                                 <Controller
                                     name="service_charges"
                                     control={control}
-                                    rules={{required:Required}}
+                                    rules={{required:Required, pattern: PercentageValidation}}
                                     defaultValue={0}
                                     render={({ field }) => (
                                             <TextInput
@@ -140,9 +139,8 @@ export default function PosSetting({setIsValid}:IPOS) {
                                     )}
                                 />
                             </div>
-
                             <div className={"tip-field"}>
-                                <h3 className={"dash-heading"}>Tip <span> (Add the tip to both credit and cash payments)</span></h3>
+                                <h3 className={"pos-heading"}>Tip <span> (Add the tip to both credit and cash payments)</span></h3>
                                 <div className={"tip-switch"}>
                                     <div className={"dfields"}>
                                         <Controller
@@ -178,10 +176,11 @@ export default function PosSetting({setIsValid}:IPOS) {
                                                         validate: {
                                                             required: (value) => {
                                                                 if (!value && tipInput)
-                                                                    return "field is required";
+                                                                    return "Required";
                                                                 return true;
                                                             }
-                                                        }
+                                                        },
+                                                        pattern: PercentageValidation
                                                     }}
                                                     defaultValue={0}
                                                     render={({ field }) => (

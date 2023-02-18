@@ -13,6 +13,7 @@ export default function SelectCustomCategories() {
     const { control, setValue } = useFormContext();
     const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([]);
     const [checkedKeys, setCheckedKeys] = useState<React.Key[]>([]);
+    const [loading, setLoading] = useState<Boolean>(false);
     const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
     const [treeData, setTreeData] = useState<DataNode[]>([])
     const onExpand = (expandedKeysValue: React.Key[]) => {
@@ -69,9 +70,15 @@ export default function SelectCustomCategories() {
     }
 
     useEffect(()=>{
-        MenuServices.getAllCategories(null,{establishment_id: establishmentId, relation: 'all'},false,PAGINATION.perPage,1).then((categories)=>{
-            setTreeData(appendSubcategoriesAsChildren(categories.data))
-        })
+        setLoading(true)
+        MenuServices.getAllCategories(null,{establishment_id: establishmentId, relation: 'all'},false,PAGINATION.perPage,1)
+            .then((categories)=>{
+                setTreeData(appendSubcategoriesAsChildren(categories.data));
+                setLoading(false)
+            })
+            .catch(()=>{
+                setLoading(false)
+            })
     },[establishmentId])
 
     return(
@@ -79,7 +86,7 @@ export default function SelectCustomCategories() {
             <div className={"modifiers"}>
                 <div className={"modifiers-section"}>
                     {
-                        treeData.length > 0 ? <Controller
+                        !loading ? <Controller
                             name={`products`}
                             control={control}
                             rules = {{}}

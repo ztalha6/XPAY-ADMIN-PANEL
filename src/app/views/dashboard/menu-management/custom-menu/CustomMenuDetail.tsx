@@ -15,6 +15,7 @@ import {IDealComboListing} from "../../../../interfaces/IDealsCombo";
 import {BACKEND_CONSTANTS} from "../../../../config/constants";
 import ThemeButton from "../../../../components/dashboard/ThemeButton";
 import CustomMenuDetailSkeleton from "../../../../skeletons/menu-management/custom-menu/CustomMenuDetailSkeleton";
+import Heading from "../../../../components/dashboard/Heading";
 
 export default function CustomMenuDetail() {
     const { TabPane } = Tabs;
@@ -45,7 +46,7 @@ export default function CustomMenuDetail() {
                     <Row className={"h-100"}>
                         <Col md={12} lg={6} xl={6} xxl={4}>
                             <div className={"left-col"}>
-                                <h2 className={"dash-heading"}>Create Custom Menu</h2>
+                                <Heading><h2><span>Create Custom Menu</span></h2></Heading>
                                 <div className={"detail-box"}>
                                     <h3>Custom Menu Name</h3>
                                     <h4>{singleCustomMenu?.name}</h4>
@@ -111,7 +112,7 @@ export default function CustomMenuDetail() {
                         </Col>
                         <Col md={12} lg={6} xl={6} xxl={4}>
                             <div className={"right-col"}>
-                                <h2 className={"dash-heading"}>Time Schedule</h2>
+                                <Heading><h2><span>Time Schedule</span></h2></Heading>
                                 <h5>Time Availability:</h5>
                                 <ul className={"time-Schedule"}>
                                     {singleCustomMenu?.time_tables?.map((time:ITimetable)=> {

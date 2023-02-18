@@ -17,6 +17,7 @@ import {MenuServices} from "../../../services/api-services/menu-services";
 import DateRange from "../../../components/dashboard/DateRange";
 import {useNavigate} from "react-router-dom";
 import ThemeButton from "../../../components/dashboard/ThemeButton";
+import Heading from "../../../components/dashboard/Heading";
 
 export function fineTunePromoFormData(formData: ICreatePromo, establishmentId:number){
 
@@ -60,10 +61,10 @@ export default function CreatePromo() {
     ]
     useEffect(()=>{
         setTitle("Create Promo")
-        MenuServices.getAllProducts(null,{api_type: 'basic'}).then((res)=>{
+        MenuServices.getAllProducts(null,{establishment_id: establishmentId,api_type: 'basic'}).then((res)=>{
             setProducts(res.data)
         })
-    },[])
+    },[establishmentId])
 
     const {
         handleSubmit,
@@ -135,7 +136,7 @@ export default function CreatePromo() {
                     <Form onSubmit={handleSubmit(onSubmit)}>
                         <Row>
                             <Col md={12}>
-                                <h2 className={"dash-heading"}>Add Promo Code</h2>
+                                <Heading><h2><span>Add Promo</span></h2></Heading>
                             </Col>
                         </Row>
                         <Row>

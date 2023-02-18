@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import ViewCard from "../../../components/dashboard/ViewCard";
 import {useUserContext} from "../../../providers/UserProvider";
-import {Col, Container, Form, Row} from "react-bootstrap";
+import {Col, Form, Row} from "react-bootstrap";
 import {Controller, useForm} from "react-hook-form";
 import {EmailValidation, MaxLength, maxLength, MinLength, Required} from "../../../utils/patterns";
 import TextInput from "../../../components/authentication/TextInput";
@@ -16,6 +16,7 @@ import "../../../../assets/css/views/dashboard/email-marketing.scss"
 import ThemeBtn from "../../../components/authentication/ThemeBtn";
 import PlacesAutocomplete, {geocodeByAddress, getLatLng, Suggestion} from "react-places-autocomplete";
 import EmailInput from "../../../components/authentication/EmailInput";
+import Heading from "../../../components/dashboard/Heading";
 
 export default function EmailMarketing() {
     const {setTitle, establishmentId} = useUserContext()
@@ -155,7 +156,7 @@ export default function EmailMarketing() {
             <div className={"email-marketing"}>
               <Row>
                         <Col md={5}>
-                            <h2 className={"dash-heading"}>Message</h2>
+                            <Heading><h2><span>Message</span></h2></Heading>
                             <Form onSubmit={handleSubmit(onSubmit)}>
                                 <div className={"dfields"}>
                                     <Controller
@@ -394,7 +395,7 @@ export default function EmailMarketing() {
                             </Form>
                         </Col>
                         <Col md={7}>
-                            <h2 className={"dash-heading"}>Preview</h2>
+                            <Heading><h2><span>Preview</span></h2></Heading>
                         </Col>
                     </Row>
             </div>

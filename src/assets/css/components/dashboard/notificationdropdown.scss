@@ -334,3 +334,34 @@
   }
 }
 
+@media screen and (min-width: 576px) and (max-width: 768px) {
+  .notification-dropdown{
+    .drop-down{
+      .drop-down__button{
+        padding: 0 4px;
+        border-radius: 5px;
+        height: 40px;
+        .notification-icon{
+          font-size: 26px;
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (min-width: 0) and (max-width: 576px) {
+  .notification-dropdown{
+    .drop-down{
+      .drop-down__button{
+        padding: 0 4px;
+        border-radius: 5px;
+        height: 35px;
+        .notification-icon{
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}
+

@@ -23,8 +23,7 @@ export default function DashboardAnalyticsSkeletons() {
                                         return (
                                             <>
                                                 <div className={"chart-percent"}> <HeadingSkeleton height={12} maxWidth={100}/> </div>
-                                                <div className={"ch" +
-                                                "art-percent"}> <HeadingSkeleton height={25} maxWidth={50}/> </div>
+                                                <div className={"chart-percent"}> <HeadingSkeleton height={25} maxWidth={50}/> </div>
                                             </>
                                         )
                                     }} />

@@ -14,6 +14,7 @@ import {convertTimeZone} from "../../../../services/helper/convert-time-zone";
 import ProductDetailViewSkeleton from "../../../../skeletons/menu-management/product/ProductDetailViewSkeleton";
 import {toast} from "react-toastify";
 import ImgNotFound from "../../../../../assets/images/image-not-found.webp";
+import Heading from "../../../../components/dashboard/Heading";
 
 export default function ProductDetailView() {
     const [product, setProduct] = useState<IProductList>()
@@ -63,7 +64,7 @@ export default function ProductDetailView() {
                         <ViewCard>
                             <Row>
                                 <Col>
-                                    <h2 className={"dash-heading"}>Product Details</h2>
+                                    <Heading><h2><span>Product Details</span></h2></Heading>
                                 </Col>
                             </Row>
                             <div className={"product-header"}>
@@ -177,7 +178,7 @@ export default function ProductDetailView() {
                     <Col sm={12} md={12} lg={4} xl={4}>
                         <div className={"modifier-section"}>
                             <div className={"modifier-card"}>
-                                <h2 className={"dash-heading"}>Modifiers</h2>
+                                <Heading><h2><span>Modifiers</span></h2></Heading>
                                 <div className={"product-modifiers"}>
                                     {modifierClasses.map((modifierClass) =>{
                                         return(

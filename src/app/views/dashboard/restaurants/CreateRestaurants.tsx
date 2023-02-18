@@ -19,6 +19,7 @@ import {PlanService} from "../../../services/api-services/plan.service";
 import {useNavigate} from "react-router";
 import {useUserContext} from "../../../providers/UserProvider";
 import ThemeButton from "../../../components/dashboard/ThemeButton";
+import Heading from "../../../components/dashboard/Heading";
 
 
 export default function CreateRestaurants() {
@@ -84,7 +85,7 @@ export default function CreateRestaurants() {
                     <Form onSubmit={methods.handleSubmit(onSubmit)}>
                             <Row className={"h-100"}>
                                 <Col md={12}>
-                                    <h2 className={"dash-heading"}>Create Restaurant</h2>
+                                    <Heading><h2><span>Create Restaurant</span></h2></Heading>
                                 </Col>
                                 {/*<Col md={4}>*/}
                                 {/*    <div className={"dfields establishment-fields"}>*/}

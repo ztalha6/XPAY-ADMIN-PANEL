@@ -18,6 +18,7 @@ import {ITimetable} from "../../../interfaces/IGetEstablishment";
 import {toast} from "react-toastify";
 import ThemeButton from "../../../components/dashboard/ThemeButton";
 import {fineTuneDiscountFormData} from "./CreateManualDiscount";
+import Heading from "../../../components/dashboard/Heading";
 
 
 export default function EditManualDiscount() {
@@ -99,7 +100,7 @@ export default function EditManualDiscount() {
                                             <Col  md={6} lg={4} xl={5}>
                                                 <Row>
                                                     <Col md={12}>
-                                                        <h2 className={"dash-heading"}>Discount Details</h2>
+                                                        <Heading><h2><span>Discount Details</span></h2></Heading>
                                                     </Col>
                                                 </Row>
                                                 <Row className={"h-100"}>

@@ -13,6 +13,7 @@ import ViewCard from "../../../components/dashboard/ViewCard";
 import PlacesAutocomplete, {geocodeByAddress, getLatLng, Suggestion} from "react-places-autocomplete";
 import {BACKEND_CONSTANTS} from "../../../config/constants";
 import {toast} from "react-toastify";
+import Heading from "../../../components/dashboard/Heading";
 
 export default function EditRestaurants() {
     const [change,setChange] = useState<boolean>(false)
@@ -92,7 +93,7 @@ export default function EditRestaurants() {
                             <Row className={"h-100"}>
                                     <Col md={5}>
                                         <div className={"lef-col"}>
-                                            <h2 className={"dash-heading"}>Establishment</h2>
+                                            <Heading><h2><span>Establishment</span></h2></Heading>
                                             <div className={"dfields establishment-fields"}>
                                                 <input type="hidden" value={20.34334} {...methods.register("latitude")}/>
                                                 <input type="hidden" value={10.34234} {...methods.register("longitude")}/>

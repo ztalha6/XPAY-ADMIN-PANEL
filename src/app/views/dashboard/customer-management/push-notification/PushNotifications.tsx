@@ -20,6 +20,7 @@ import PushFilters from "./PushFilters";
 import ThemeButton from "../../../../components/dashboard/ThemeButton";
 import {FaFilter} from "react-icons/fa";
 import ThemeModal from "../../../../components/Modal";
+import Heading from "../../../../components/dashboard/Heading";
 
 export default function PushNotifications() {
     const {setTitle, establishmentId} = useUserContext()
@@ -157,194 +158,200 @@ export default function PushNotifications() {
                                 </div>
                             </div>
                             <div className={"d-none d-md-block"}>
-                                <PushFilters loading={loading}/>
+                                <PushFilters loading={filterLoader}/>
                             </div>
-                            <ThemeModal title={'Filters'} active={filterPopup} setActive={setFilterPopup} children={   <PushFilters loading={loading}/>} />
+                            <ThemeModal
+                                title={'Filters'}
+                                active={filterPopup}
+                                setActive={setFilterPopup}
+                                children={ <PushFilters
+                                    loading={filterLoader}
+                                />} />
                         </Row>
 
                     </Form>
                 </FormProvider>
                 <Row>
-                        <Col>
-                           {disableField ?
-                                <h3>No user selected <span>(please select the users from the above filter to able the form)</span></h3>
-                                :
-                                <h3>{deviceCountMessage}</h3>
-                           }
-                        </Col>
-                    </Row>
+                    <Col>
+                        {disableField ?
+                            <h3>No user selected <span>(please select the users from the above filter to able the form)</span></h3>
+                            :
+                            <h3>{deviceCountMessage}</h3>
+                        }
+                    </Col>
+                </Row>
                 <Row>
-                        <Col md={12} lg={5}>
-                            <h2 className={"dash-heading"}>Message</h2>
-                            <Form onSubmit={methods.handleSubmit(onSubmit)}>
-                                <div className={"dfields"}>
-                                    <Controller
-                                        name="title"
-                                        defaultValue={""}
-                                        control={methods.control}
-                                        rules = {{required : Required, maxLength: maxLength(100)}}
-                                        render={({ field }) => (
-                                            <TextInput
-                                                placeholder={"title"}
-                                                variant={"field-white"}
-                                                label={"Title"}
-                                                labelPos={"out"}
-                                                labelColor={"dark"}
-                                                type={"text"}
-                                                disabled={disableField}
-                                                field={field}
-                                                errors ={methods.formState.errors.title}
-                                            />
-                                        )}
-                                    />
-                                </div>
-                                <div className={"dfields"}>
-                                    <Controller
-                                        name="message"
-                                        defaultValue={""}
-                                        control={methods.control}
-                                        rules = {{ maxLength:maxLength(500)}}
-                                        render={({ field }) => (
-                                            <DescriptionField
-                                                variant={"field-white"}
-                                                label={"Message"}
-                                                labelPos={"out"}
-                                                placeholder={"Add Description"}
-                                                labelColor={"dark"}
-                                                type={"text"}
-                                                field={field}
-                                                disabled={disableField}
-                                                errors ={methods.formState.errors.message}
-                                            />
-                                        )}
-                                    />
-                                </div>
-                                <div className={"dfields"}>
-                                    <label>Upload Your Image Here</label>
-                                    <ImageUpload disabled={disableField} maxCount={1} setValue={methods.setValue} fieldName={"images"} />
-                                </div>
-                                {/*<div className={"dfields"}>*/}
-                                {/*    <Controller*/}
-                                {/*        name="platform"*/}
-                                {/*        control={control}*/}
-                                {/*        rules = {{required : Required}}*/}
-                                {/*        render={({ field }) => (*/}
-                                {/*            <MultiSelectField*/}
-                                {/*                label={"Order Type"}*/}
-                                {/*                errors={errors.platform}*/}
-                                {/*                field = {field}*/}
-                                {/*                selectOptions={orderType}*/}
-                                {/*                maxTagCount={1}*/}
-                                {/*            />*/}
-                                {/*        )}*/}
-                                {/*    />*/}
-                                {/*</div>*/}
-                                {/*<div className={"dfields"}>*/}
-                                {/*    <Controller*/}
-                                {/*        name="applies_to"*/}
-                                {/*        defaultValue={DISCOUNT.APPLIES_TO.ALL}*/}
-                                {/*        control={control}*/}
-                                {/*        rules = {{required : Required}}*/}
-                                {/*        render={({ field }) => (*/}
-                                {/*            <SelectField*/}
-                                {/*                defaultValue={''}*/}
-                                {/*                label={"Applies To"}*/}
-                                {/*                errors={errors.applies_to}*/}
-                                {/*                field = {field}*/}
-                                {/*                selectOptions = {appliesTo}*/}
-                                {/*                // disabled={!isRestaurantAdmin}*/}
-                                {/*            />*/}
-                                {/*        )}*/}
-                                {/*    />*/}
-                                {/*</div>*/}
-                                {/*<div className={"selected-users"}>*/}
-                                {/*    {watchAppliesTo == DISCOUNT.APPLIES_TO.SPECIFIC && (*/}
-                                {/*        <>*/}
-                                {/*            <h5>Specific Item</h5>*/}
-                                {/*            <div className={"dfields"}>*/}
-                                {/*                <Controller*/}
-                                {/*                    name="include_exclude"*/}
-                                {/*                    defaultValue={DISCOUNT.DISCOUNT_PRODUCT.INCLUDE}*/}
-                                {/*                    control={control}*/}
-                                {/*                    rules = {{required : Required}}*/}
-                                {/*                    render={({ field, field:{onChange , value} }) => {*/}
-                                {/*                        // console.log(field);*/}
-                                {/*                        return (*/}
-                                {/*                            <Radio.Group*/}
-                                {/*                                value={field.value}*/}
-                                {/*                                onChange={(e) => field.onChange(e.target.value)}*/}
-                                {/*                                defaultValue={*/}
-                                {/*                                    DISCOUNT.DISCOUNT_PRODUCT.INCLUDE*/}
-                                {/*                                }*/}
-                                {/*                            >*/}
-                                {/*                                <Radio value={DISCOUNT.DISCOUNT_PRODUCT.INCLUDE}>Include</Radio>*/}
-                                {/*                                <Radio value={DISCOUNT.DISCOUNT_PRODUCT.EXCLUDE}>Exclude</Radio>*/}
-                                {/*                            </Radio.Group>*/}
-                                {/*                        );*/}
-                                {/*                    }}*/}
-                                {/*                />*/}
-                                {/*            </div>*/}
-                                {/*            /!*<div className={"dfields"}>*!/*/}
-                                {/*            /!*    <Controller*!/*/}
-                                {/*            /!*        name={`users`}*!/*/}
-                                {/*            /!*        control={control}*!/*/}
-                                {/*            /!*        rules = {{required : Required}}*!/*/}
-                                {/*            /!*        defaultValue={[]}*!/*/}
-                                {/*            /!*        render={({ field, fieldState }) => (*!/*/}
-                                {/*            /!*            <MultiSelectField*!/*/}
-                                {/*            /!*                label={""}*!/*/}
-                                {/*            /!*                errors={errors?.users}*!/*/}
-                                {/*            /!*                field = {field}*!/*/}
-                                {/*            /!*                selectOptions = {users}*!/*/}
-                                {/*            /!*                // setSelectedEstablishment = {setSelectedEstablishment}*!/*/}
-                                {/*            /!*                // disabled={true}*!/*/}
-                                {/*            /!*                // maxTagCount={1}*!/*/}
-                                {/*            /!*            />*!/*/}
-                                {/*            /!*        )}*!/*/}
-                                {/*            /!*    />*!/*/}
-                                {/*            /!*</div>*!/*/}
-                                {/*        </>*/}
-                                {/*    )*/}
-                                {/*    }*/}
+                    <Col md={12} lg={5}>
+                        <Heading><h2><span>Message</span></h2></Heading>
+                        <Form onSubmit={methods.handleSubmit(onSubmit)}>
+                            <div className={"dfields"}>
+                                <Controller
+                                    name="title"
+                                    defaultValue={""}
+                                    control={methods.control}
+                                    rules = {{required : Required, maxLength: maxLength(100)}}
+                                    render={({ field }) => (
+                                        <TextInput
+                                            placeholder={"title"}
+                                            variant={"field-white"}
+                                            label={"Title"}
+                                            labelPos={"out"}
+                                            labelColor={"dark"}
+                                            type={"text"}
+                                            disabled={disableField}
+                                            field={field}
+                                            errors ={methods.formState.errors.title}
+                                        />
+                                    )}
+                                />
+                            </div>
+                            <div className={"dfields"}>
+                                <Controller
+                                    name="message"
+                                    defaultValue={""}
+                                    control={methods.control}
+                                    rules = {{ maxLength:maxLength(500)}}
+                                    render={({ field }) => (
+                                        <DescriptionField
+                                            variant={"field-white"}
+                                            label={"Message"}
+                                            labelPos={"out"}
+                                            placeholder={"Add Description"}
+                                            labelColor={"dark"}
+                                            type={"text"}
+                                            field={field}
+                                            disabled={disableField}
+                                            errors ={methods.formState.errors.message}
+                                        />
+                                    )}
+                                />
+                            </div>
+                            <div className={"dfields"}>
+                                <label>Upload Your Image Here</label>
+                                <ImageUpload disabled={disableField} maxCount={1} setValue={methods.setValue} fieldName={"images"} />
+                            </div>
+                            {/*<div className={"dfields"}>*/}
+                            {/*    <Controller*/}
+                            {/*        name="platform"*/}
+                            {/*        control={control}*/}
+                            {/*        rules = {{required : Required}}*/}
+                            {/*        render={({ field }) => (*/}
+                            {/*            <MultiSelectField*/}
+                            {/*                label={"Order Type"}*/}
+                            {/*                errors={errors.platform}*/}
+                            {/*                field = {field}*/}
+                            {/*                selectOptions={orderType}*/}
+                            {/*                maxTagCount={1}*/}
+                            {/*            />*/}
+                            {/*        )}*/}
+                            {/*    />*/}
+                            {/*</div>*/}
+                            {/*<div className={"dfields"}>*/}
+                            {/*    <Controller*/}
+                            {/*        name="applies_to"*/}
+                            {/*        defaultValue={DISCOUNT.APPLIES_TO.ALL}*/}
+                            {/*        control={control}*/}
+                            {/*        rules = {{required : Required}}*/}
+                            {/*        render={({ field }) => (*/}
+                            {/*            <SelectField*/}
+                            {/*                defaultValue={''}*/}
+                            {/*                label={"Applies To"}*/}
+                            {/*                errors={errors.applies_to}*/}
+                            {/*                field = {field}*/}
+                            {/*                selectOptions = {appliesTo}*/}
+                            {/*                // disabled={!isRestaurantAdmin}*/}
+                            {/*            />*/}
+                            {/*        )}*/}
+                            {/*    />*/}
+                            {/*</div>*/}
+                            {/*<div className={"selected-users"}>*/}
+                            {/*    {watchAppliesTo == DISCOUNT.APPLIES_TO.SPECIFIC && (*/}
+                            {/*        <>*/}
+                            {/*            <h5>Specific Item</h5>*/}
+                            {/*            <div className={"dfields"}>*/}
+                            {/*                <Controller*/}
+                            {/*                    name="include_exclude"*/}
+                            {/*                    defaultValue={DISCOUNT.DISCOUNT_PRODUCT.INCLUDE}*/}
+                            {/*                    control={control}*/}
+                            {/*                    rules = {{required : Required}}*/}
+                            {/*                    render={({ field, field:{onChange , value} }) => {*/}
+                            {/*                        // console.log(field);*/}
+                            {/*                        return (*/}
+                            {/*                            <Radio.Group*/}
+                            {/*                                value={field.value}*/}
+                            {/*                                onChange={(e) => field.onChange(e.target.value)}*/}
+                            {/*                                defaultValue={*/}
+                            {/*                                    DISCOUNT.DISCOUNT_PRODUCT.INCLUDE*/}
+                            {/*                                }*/}
+                            {/*                            >*/}
+                            {/*                                <Radio value={DISCOUNT.DISCOUNT_PRODUCT.INCLUDE}>Include</Radio>*/}
+                            {/*                                <Radio value={DISCOUNT.DISCOUNT_PRODUCT.EXCLUDE}>Exclude</Radio>*/}
+                            {/*                            </Radio.Group>*/}
+                            {/*                        );*/}
+                            {/*                    }}*/}
+                            {/*                />*/}
+                            {/*            </div>*/}
+                            {/*            /!*<div className={"dfields"}>*!/*/}
+                            {/*            /!*    <Controller*!/*/}
+                            {/*            /!*        name={`users`}*!/*/}
+                            {/*            /!*        control={control}*!/*/}
+                            {/*            /!*        rules = {{required : Required}}*!/*/}
+                            {/*            /!*        defaultValue={[]}*!/*/}
+                            {/*            /!*        render={({ field, fieldState }) => (*!/*/}
+                            {/*            /!*            <MultiSelectField*!/*/}
+                            {/*            /!*                label={""}*!/*/}
+                            {/*            /!*                errors={errors?.users}*!/*/}
+                            {/*            /!*                field = {field}*!/*/}
+                            {/*            /!*                selectOptions = {users}*!/*/}
+                            {/*            /!*                // setSelectedEstablishment = {setSelectedEstablishment}*!/*/}
+                            {/*            /!*                // disabled={true}*!/*/}
+                            {/*            /!*                // maxTagCount={1}*!/*/}
+                            {/*            /!*            />*!/*/}
+                            {/*            /!*        )}*!/*/}
+                            {/*            /!*    />*!/*/}
+                            {/*            /!*</div>*!/*/}
+                            {/*        </>*/}
+                            {/*    )*/}
+                            {/*    }*/}
 
-                                {/*</div>*/}
-                                {/*<div className={"mt-4"}>*/}
-                                {/*    */}
-                                {/*    <ThemeBtn disabled={disableField} size={"lg"} text={"Submit"} type={"submit"}/>*/}
-                                {/*</div>*/}
-                                <div className={"button-section"}>
-                                    <ThemeButton onClick={()=>  navigator(-1)} type={"button"} className={"form-cancel"} text={"Cancel"}/>
-                                    <ThemeButton loader={submitLoader} type={"submit"} className={"form-create"} text={"Create"} disabled={disableField} />
-                                </div>
-                            </Form>
-                        </Col>
-                        <Col md={12} lg={7}>
-                            <h2 className={"dash-heading"}>Preview</h2>
-                            <div className={"preview"}>
-                                <div className={"push-box"}>
-                                    <div className={"push-header"}>
-                                        <h3>Masto Grill</h3>
-                                        <span>
+                            {/*</div>*/}
+                            {/*<div className={"mt-4"}>*/}
+                            {/*    */}
+                            {/*    <ThemeBtn disabled={disableField} size={"lg"} text={"Submit"} type={"submit"}/>*/}
+                            {/*</div>*/}
+                            <div className={"button-section"}>
+                                <ThemeButton onClick={()=>  navigator(-1)} type={"button"} className={"form-cancel"} text={"Cancel"}/>
+                                <ThemeButton loader={submitLoader} type={"submit"} className={"form-create"} text={"Create"} disabled={disableField} />
+                            </div>
+                        </Form>
+                    </Col>
+                    <Col md={12} lg={7}>
+                        <Heading><h2><span>Preview</span></h2></Heading>
+                        <div className={"preview"}>
+                            <div className={"push-box"}>
+                                <div className={"push-header"}>
+                                    <h3>Masto Grill</h3>
+                                    <span>
                                             <BsThreeDots/>
                                         </span>
-                                    </div>
-                                    <div className={"push-img"}>
-                                        <img src={previewImage? previewImage : pushNot} className={"img-fluid"}/>
-                                    </div>
-                                    <div className={"push-body"}>
-                                        <h4>{pushTitle? pushTitle : 'New Discount available now' }</h4>
-                                        <p>{pushDes ? pushDes :
-                                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem \n' +
-                                            'Ipsum has been the industry\'s standard dummy text ever since the 1500s, when \n' +
-                                            'an unknown printer took a galley of type.\n'
-                                        }
-                                        </p>
+                                </div>
+                                <div className={"push-img"}>
+                                    <img src={previewImage? previewImage : pushNot} className={"img-fluid"}/>
+                                </div>
+                                <div className={"push-body"}>
+                                    <h4>{pushTitle? pushTitle : 'New Discount available now' }</h4>
+                                    <p>{pushDes ? pushDes :
+                                        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem \n' +
+                                        'Ipsum has been the industry\'s standard dummy text ever since the 1500s, when \n' +
+                                        'an unknown printer took a galley of type.\n'
+                                    }
+                                    </p>
 
-                                    </div>
                                 </div>
                             </div>
-                        </Col>
-                    </Row>
+                        </div>
+                    </Col>
+                </Row>
             </div>
         </ViewCard>
     )

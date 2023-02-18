@@ -13,6 +13,7 @@ import {useNavigate} from "react-router-dom";
 import {DiscountServices} from "../../../services/api-services/discount.services";
 import {toast} from "react-toastify";
 import ThemeButton from "../../../components/dashboard/ThemeButton";
+import Heading from "../../../components/dashboard/Heading";
 
 // import {CiCalendarDate} from "react-icons/ci"
 
@@ -87,7 +88,7 @@ export default function CreateManualDiscount() {
                                 <Col md={5}>
                                     <Row>
                                         <Col md={12}>
-                                            <h2 className={"dash-heading"}>Details</h2>
+                                            <Heading><h2><span>Details</span></h2></Heading>
                                         </Col>
                                     </Row>
                                     <Row className={"h-100"}>

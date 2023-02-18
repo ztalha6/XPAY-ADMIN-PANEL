@@ -136,6 +136,20 @@
     left: 0;
     border-radius: 20px;
   }
+
+}
+.theme-heading{
+  h2{
+    font-size: 22px;
+    border-bottom: 1px solid #E2E2E2;
+    position: relative;
+    padding: 10px 0;
+    color: var(--text-color-dark);
+    span{
+      border-bottom: 3px solid var(--text-color-primary);
+      padding-bottom: 8px;
+    }
+  }
 }
 
 

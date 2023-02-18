@@ -3,7 +3,7 @@ import {Col, Form, Row} from "react-bootstrap";
 import TextInput from "../../../components/authentication/TextInput";
 import "../../../../assets/css/views/dashboard/establishment.scss";
 import {Controller, FormProvider, useForm} from "react-hook-form";
-import {maxLength, MaxLength, minLength, MinLength, Required} from "../../../utils/patterns";
+import {maxLength, MaxLength, minLength, MinLength, PhoneValidation, Required} from "../../../utils/patterns";
 import {ICreateEstablishment} from "../../../interfaces/IGetEstablishment";
 import TimeTable from "../../../components/dashboard/TimeTable";
 import {BACKEND_CONSTANTS} from "../../../config/constants";
@@ -17,6 +17,8 @@ import ThemeButton from "../../../components/dashboard/ThemeButton";
 import {EstablishmentServices} from "../../../services/api-services/establishment.services";
 import axios from "axios";
 import moment from "moment";
+import Heading from "../../../components/dashboard/Heading";
+import PhoneInput from "../../../components/authentication/PhoneInput";
 
 export const orderTypes = [
     {
@@ -130,7 +132,7 @@ export default function CreateEstablishment() {
                     <div className={"establishment-section"}>
                        <Row className={"h-100"}>
                             <Col sm={12} md={6} lg={5}>
-                                <h2 className={"dash-heading"}>Establishment</h2>
+                                <Heading><h2><span>Establishment</span></h2></Heading>
                                 <div className={"lef-col"}>
                                     <div className={"dfields establishment-fields"}>
                                         <input type="hidden" value={20.34334} {...methods.register("latitude")}/>
@@ -173,6 +175,27 @@ export default function CreateEstablishment() {
                                                     type={"text"}
                                                     field={field}
                                                     errors ={methods.formState.errors.pos_devices}
+                                                />
+                                            )}
+                                        />
+                                    </div>
+
+                                    <div className={"dfields establishment-fields"}>
+                                        <Controller
+                                            name="phone"
+                                            defaultValue={""}
+                                            control={methods.control}
+                                            rules = {{required:Required , pattern:PhoneValidation }}
+                                            render={({ field }) => (
+                                                <PhoneInput
+                                                    variant="field-white"
+                                                    labelPos="out"
+                                                    labelColor="dark"
+                                                    label={"Phone"}
+                                                    type={"text"}
+                                                    placeholder="Phone"
+                                                    errors ={methods.formState.errors.phone}
+                                                    field={field}
                                                 />
                                             )}
                                         />

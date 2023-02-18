@@ -81,6 +81,7 @@ import PosDeviceListing from "../views/dashboard/pos-devices/PosDeviceListing";
 import EditManualDiscount from "../views/dashboard/discount/EditManualDiscount";
 import ProductDetailView from "../views/dashboard/menu-management/create-product/ProductDetailView";
 import OrderDetailSkeleton from "../skeletons/order-management/OrderDetailSkeleton";
+import SalesSummarySkeleton from "../skeletons/reports/SalesSummarySkeleton";
 
 function RouteConfig() {
     const location = useLocation()
@@ -208,11 +209,6 @@ function RouteConfig() {
                     <Route path="/custom-menu" element={
                         <PermissionProtectedRoutes moduleId={BACKEND_CONSTANTS.MODULES.MENU_MANAGEMENT} permissionName={'pivot_read'}>
                             <CustomMenuListing/>
-                        </PermissionProtectedRoutes>
-                    }/>
-                    <Route path="/test-shimmer" element={
-                        <PermissionProtectedRoutes moduleId={BACKEND_CONSTANTS.MODULES.MENU_MANAGEMENT} permissionName={'pivot_read'}>
-                            <OrderDetailSkeleton/>
                         </PermissionProtectedRoutes>
                     }/>
                     <Route path="/edit-modifier-class/:id" element={

@@ -78,8 +78,24 @@
     height: 50px;
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
   //Right settings
+}
+//sidebar theme switch
+.theme-change-m{
+  border-bottom: 1px solid #EDEDED;
+  padding-bottom: 25px;
+  h4{
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    color: #1C212D;
+  }
+  .theme-mode-mobile{
+    display: flex;
+    gap:10px;
+  }
 }
 
 @media screen and (min-width: 1200px) and (max-width: 1420px) {
@@ -148,7 +164,7 @@
     .header-options{
       display: flex;
       .establishment-select{
-
+        display: none;
       }
     }
     //Right settings
@@ -163,7 +179,7 @@
       .heading{
         h3{
           //font-weight: 400;
-          //font-size: 24px;
+          font-size: 27px;
           //line-height: 36px;
         }
       }
@@ -186,7 +202,14 @@
         display: none;
       }
     }
-    //Right settings
+    .mobile-options{
+      font-size: 26px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      line-height: 32px;
+    }
   }
 }
 
@@ -198,7 +221,7 @@
       .heading{
         h3{
           //font-weight: 400;
-          //font-size: 24px;
+          font-size: 24px;
           //line-height: 36px;
         }
       }
@@ -220,6 +243,14 @@
       .establishment-select{
         display: none;
       }
+    }
+    .mobile-options{
+      font-size: 24px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      line-height: 32px;
     }
     //Right settings
   }

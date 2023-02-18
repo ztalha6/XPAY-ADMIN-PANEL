@@ -23,6 +23,7 @@ import {fineTunePromoFormData} from "./CreatePromo";
 import moment from "moment";
 import ThemeButton from "../../../components/dashboard/ThemeButton";
 import EditPromoSkeleton from "../../../skeletons/promo/EditPromoSkeleton";
+import Heading from "../../../components/dashboard/Heading";
 
 export default function EditPromo() {
     const {setTitle, establishmentId} = useUserContext()
@@ -40,10 +41,10 @@ export default function EditPromo() {
     const [products, setProducts] = useState<IProductList[]>()
     useEffect(()=>{
         setTitle("Edit Promo")
-        MenuServices.getAllProducts(null,{api_type: 'basic'}).then((res)=>{
+        MenuServices.getAllProducts(null,{establishment_id: establishmentId,api_type: 'basic'}).then((res)=>{
             setProducts(res.data)
         })
-    },[])
+    },[establishmentId])
     const {
         register,
         handleSubmit,
@@ -140,7 +141,7 @@ export default function EditPromo() {
                         <Form onSubmit={handleSubmit(onSubmit)}>
                             <Row>
                                 <Col md={12}>
-                                    <h2 className={"dash-heading"}>Edit Promo</h2>
+                                    <Heading><h2><span>Edit Promo</span></h2></Heading>
                                 </Col>
                             </Row>
                             <Row className={"mt-2 mb-3"}>

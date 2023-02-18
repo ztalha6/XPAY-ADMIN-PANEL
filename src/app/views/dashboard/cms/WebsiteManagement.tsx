@@ -35,10 +35,11 @@ export default function WebsiteManagement() {
         control,
         watch
     } = useForm<IWebsiteCMS>({
-        mode: "onChange",
+        mode: "onChange"
     });
 
     const onSubmit= async(data:IWebsiteCMS)=>{
+
         setSubmitLoader(true)
         data.type = BACKEND_CONSTANTS.THEME_TYPES.WEB
         if(data.logos){

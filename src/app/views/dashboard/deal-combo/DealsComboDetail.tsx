@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import ViewCard from "../../../components/dashboard/ViewCard";
-import {Col, Container, Row} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import "../../../../assets/css/views/dashboard/deals-detail.scss";
 import {BsCircleFill} from "react-icons/bs"
 import {CaretDownOutlined} from '@ant-design/icons';
@@ -14,6 +14,7 @@ import {IDealComboListing} from "../../../interfaces/IDealsCombo";
 import DealsComboDetailSkeleton from "../../../skeletons/deals-combo/DealsComboDetailSkeleton";
 import {convertTimeZone} from "../../../services/helper/convert-time-zone";
 import ThemeButton from "../../../components/dashboard/ThemeButton";
+import Heading from "../../../components/dashboard/Heading";
 
 export default function DealsComboDetail() {
     const {setTitle} = useUserContext()
@@ -103,7 +104,7 @@ export default function DealsComboDetail() {
                             <Row className={"h-100"}>
                                     <Col className={"h-100"} md={6} lg={4}>
                                         <div className={"left-col h-100"}>
-                                            <h2 className={"dash-heading"}>Thumbnail</h2>
+                                            <Heading><h2><span>Thumbnail</span></h2></Heading>
                                             <div className={"product-img-box"}>
                                                 <img src={singleRecord?.deal_combo_image?.mediaUrl || "https://via.placeholder.com/350"} className={"img-fluid"}/>
                                                 <h4>{singleRecord?.name}</h4>
@@ -116,7 +117,7 @@ export default function DealsComboDetail() {
                                     </Col>
                                     <Col className={"h-100"} md={6} lg={4}>
                                         <div className={"center-col h-100"}>
-                                            <h2 className={"dash-heading"}>Products</h2>
+                                            <Heading><h2><span>Products</span></h2></Heading>
                                             <div className={"deals-detail-tree"}>
                                                 <Tree
                                                     showLine={showLine}
@@ -133,7 +134,7 @@ export default function DealsComboDetail() {
                                     <Col className={"h-100"} md={6} lg={4}>
                                         <div className={"center-col h-100"}>
                                             <div className={"deals-detail-box"}>
-                                                <h2 className={"dash-heading"}>Details</h2>
+                                                <Heading><h2><span>Details</span></h2></Heading>
                                                 <ul>
                                                     <li>
                                                         <h5>ID</h5>

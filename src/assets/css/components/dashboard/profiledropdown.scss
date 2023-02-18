@@ -267,3 +267,47 @@
 .ant-popover-inner-content{
   padding: 0;
 }
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+  .profile-dropdown{
+    .drop-down{
+      .drop-down__button{
+        border-radius: 4px;
+        .avatar-box{
+          height: 40px;
+          max-width: 40px;
+          border-radius: 4px;
+          overflow: hidden;
+          img{
+            height: 40px;
+            border-radius: 4px;
+            object-fit: contain;
+          }
+        }
+      }
+
+    }
+  }
+}
+
+@media screen and (min-width: 0) and (max-width: 576px) {
+  .profile-dropdown{
+    .drop-down{
+      .drop-down__button{
+        border-radius: 4px;
+        .avatar-box{
+          height: 35px;
+          max-width: 40px;
+          border-radius: 4px;
+          overflow: hidden;
+          img{
+            height: 35px;
+            border-radius: 4px;
+            object-fit: contain;
+          }
+        }
+      }
+
+    }
+  }
+}

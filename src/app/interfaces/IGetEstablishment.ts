@@ -13,6 +13,7 @@ export interface ICreateEstablishment {
     }[]
     pos_devices: number
     timezone: string
+    phone: string
 }
 interface types{
     order_type: number | undefined
@@ -43,6 +44,7 @@ export interface IGetEstablishment {
     address: string,
     latitude: number,
     longitude: number,
+    phone: string,
     status ?: number,
     timezone: string
     restaurant_id: number,

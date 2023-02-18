@@ -56,6 +56,8 @@ export interface IOrderList extends IListGeneric {
     gross_amount: number
     total_discount: number
     service_charges: number
+    delivery_charges: number
+    tax: number
     total_guests: number
     promo_code: string
     cart_id:number

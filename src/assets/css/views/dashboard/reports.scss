@@ -63,18 +63,24 @@
     margin: 0;
     padding-bottom: 10px;
     border-bottom: 1px solid #e2e2e2;
-    &:before{
-      position: absolute;
-      content: '';
-      width: 20%;
-      height: 4px;
-      background-color: #0178E5;
-      bottom: -2px;
-      border-radius: 10px;
+    span{
+      border-bottom: 3px solid  #0178E5;
+      padding-bottom: 9px;
     }
+    //&:before{
+    //  position: absolute;
+    //  content: '';
+    //  width: 20%;
+    //  height: 4px;
+    //  background-color: #0178E5;
+    //  bottom: -2px;
+    //  border-radius: 10px;
+    //}
   }
   .report-section{
-    margin: 25px 0 50px 0;
+    margin-bottom: 25px;
+    border: 1px solid #DEDEDE;
+    padding: 20px;
   }
   .report-section-right{
     margin: 25px 0 0 0;
@@ -83,14 +89,22 @@
     padding: 0;
     margin: 0;
     list-style: none;
+    li{
+      &:last-child{
+        .report-box{
+          .report-details{
+            border-right: none
+          }
+        }
+      }
+    }
   }
    .report-box{
-     display: flex;
-     justify-content: space-between;
-     padding: 25px 15px 0 0;
+     padding: 30px 15px 20px 0;
      gap: 0 20px;
-     min-width: 250px;
+     min-width: 200px;
      .report-details{
+       border-right: 1px solid rgba(0,0,0,0.08);
        h4{
          font-style: normal;
          font-weight: 600;
@@ -106,19 +120,30 @@
          color: #0C1F41;
          margin: 0;
        }
+       .report-stats{
+         display: flex;
+         gap: 5px;
+         align-items: center;
+         justify-content: space-between;
+         font-style: normal;
+         font-weight: 500;
+         font-size: 13px;
+         /* identical to box height */
+         padding: 2px 15px 2px 8px;
+         width: 53px;
+         border-radius: 30px;
+         &.up{
+           background: #E5FFF6;
+           color: #6EC9A8;
+         }
+         &.down{
+           background: #FFE4E8;
+           color: #F5697A;
+         }
+       }
      }
 
-     .report-stats{
-       display: flex;
-       gap: 5px;
-       font-style: normal;
-       font-weight: 600;
-       font-size: 12px;
-       /* identical to box height */
-       color: #6EC9A8;
-       border-right: 1px solid #DCDCDC;
-       padding-right: 15px;
-     }
+
   }
   .category-box{
     display: flex;
@@ -140,9 +165,14 @@
       flex-direction: column;
       h6{
         margin: 0;
-        font-weight: 400;
-        font-size: 14px;
-        color: #646C7C;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+
+        /* Blue */
+
+        color: #0178E5;
       }
       p{
         font-style: normal;

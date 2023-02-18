@@ -74,8 +74,8 @@ function PosDeviceCard({isActive, device, handleEdit, handleDelete}:
                     <div>{device.verification_code}</div>
                 </div>
                 <div className={"detail-item"} >
-                    <div>MAC Address</div>
-                    <div>{device.mac_address}</div>
+                    <div>Device Id</div>
+                    <div>{device.device_id}</div>
                 </div>
             </div>
 

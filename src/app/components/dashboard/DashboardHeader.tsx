@@ -1,5 +1,5 @@
-import {Layout, Tooltip} from 'antd';
-import React, {useEffect, useState} from 'react';
+import {Switch, Tooltip} from 'antd';
+import React, {useState} from 'react';
 import "../../../assets/css/components/dashboard/dashboardheader.scss";
 import {BsSearch, BsSun} from "react-icons/bs";
 import ProfileDropdown from "./ProfileDropdown";
@@ -8,16 +8,12 @@ import ThemeModal from "../Modal";
 import SelectField from "../dashboard/SelectField";
 import {useUserContext} from "../../providers/UserProvider";
 import {IoMoonOutline} from "react-icons/io5"
-// import {onMessageListener} from "../../services/helper/firebase";
-import {toast} from "react-toastify";
+import {onMessageListener} from "../../services/helper/firebase";
 import {ROLES} from "../../config/constants";
 import {RiMenuUnfoldFill} from "react-icons/ri"
 import {RxDragHandleDots2} from "react-icons/rx"
 import DashboardOffCanvas from "./DashboardOffCanvas";
-import EditModifier from "../../views/dashboard/modifiers/EditModifier";
-import ViewCard from "./ViewCard";
-const { Header} = Layout;
-
+import {toast} from "react-toastify";
 
 export default function DashboardHeader(){
     const {sidebarSwitcher, setNewNotification,newNotification,title,switchTheme,theme,isRestaurantAdmin, user, isUserReady,establishments,establishmentId, setEstablishmentId} = useUserContext()
@@ -31,18 +27,24 @@ export default function DashboardHeader(){
         setSearch(!search)
     }
 
-    // onMessageListener().then((payload:any) => {
-    //     console.log(`payload`,payload)
-    //     if(payload){
-    //         toast.success(payload?.notification?.body)
-    //         setNewNotification(!newNotification)
-    //     }
-    //
-    // }).catch(err => console.log('failed: ', err));
+    onMessageListener().then((payload:any) => {
+        console.log(`payload`,payload)
+        if(payload){
+            toast.success(payload?.notification?.body)
+            setNewNotification(!newNotification)
+        }
+
+    }).catch(err => console.log('failed: ', err));
 
     function openMobileCanvas(){
         setmobileOffcanvas(!mobileOffcanvas)
     }
+
+    //Theme Mobile Switch
+    const themeMobileSwitch = (checked: boolean) => {
+        console.log(`switch to ${checked}`);
+        switchTheme()
+    };
 
 
     return(
@@ -75,7 +77,7 @@ export default function DashboardHeader(){
                     <BsSearch onClick={searchHanlder} />
                 </div>
 
-                <div className={"switcher-icon"} onClick={switchTheme}>
+                <div className={"switcher-icon d-none d-lg-block"} onClick={switchTheme}>
                     {theme === 'light' ?
                         <Tooltip placement="bottom" title={"Dark Mood"}>
                             <IoMoonOutline/>
@@ -89,7 +91,7 @@ export default function DashboardHeader(){
                 </div>
                 <NotificationDropdown dropdown={dropdown.notification} setDropdown={setdropdown}/>
                 <ProfileDropdown dropdown={dropdown.profile} setDropdown={setdropdown}/>
-                <div className={"mobile-options d-block d-md-none"} onClick={openMobileCanvas}>
+                <div className={"mobile-options d-block d-lg-none"} onClick={openMobileCanvas}>
                     <RxDragHandleDots2/>
                 </div>
                 <ThemeModal children={<SelectField/>} setActive={setSearch} active={search}/>
@@ -97,18 +99,29 @@ export default function DashboardHeader(){
                     state={mobileOffcanvas}
                     setActive={setmobileOffcanvas}
                     children={
-                        <div className={"establishment-select"}>
-                            {/*<SelectField placeholder={"Select Restaurant"}/>*/}
-                            {(isUserReady && user.roles[0].id > ROLES.ADMIN) && <SelectField
-                                label={'Select Restaurant'}
-                                defaultValue={establishmentId}
-                                placeholder={"Select Estabishment"}
-                                selectOptions={establishments}
-                                disabled={!isRestaurantAdmin}
-                                setSelectedEstablishment={setEstablishmentId}
-                            />
-                            }
-                        </div>
+                        <>
+                            <div className={"theme-change-m"}>
+                                <h4>Theme (MODE)</h4>
+                                <div className={'theme-mode-mobile'}>
+                                    <span>Light</span>
+                                    <div className={"theme-switch-m"}> <Switch defaultChecked={theme !== 'light'} onChange={themeMobileSwitch} /></div>
+                                    <span>Dark</span>
+                                </div>
+                            </div>
+                            <div className={"establishment-select"}>
+                                {/*<SelectField placeholder={"Select Restaurant"}/>*/}
+                                {(isUserReady && user.roles[0].id > ROLES.ADMIN) && <SelectField
+                                    label={'Select Restaurant'}
+                                    defaultValue={establishmentId}
+                                    placeholder={"Select Estabishment"}
+                                    selectOptions={establishments}
+                                    disabled={!isRestaurantAdmin}
+                                    setSelectedEstablishment={setEstablishmentId}
+                                />
+                                }
+                            </div>
+                        </>
+
                     }
                     heading={"Settings"}
                 />

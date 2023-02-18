@@ -9,6 +9,7 @@ import {BACKEND_CONSTANTS, GENERIC} from "../../../config/constants";
 import {convertTimeZone} from "../../../services/helper/convert-time-zone";
 import {useUserContext} from "../../../providers/UserProvider";
 import TransactionDetailSkeleton from "../../../skeletons/payments/TransactionDetailSkeleton";
+import Heading from "../../../components/dashboard/Heading";
 
 export default function TransactionDetail() {
     const [singleTransaction, setSingleTransaction] = useState<ITransactionListing>();
@@ -57,7 +58,7 @@ export default function TransactionDetail() {
                         <Row>
                             <Col md={12}>
                                 <div className={"transaction-status"}>
-                                    <h2 className={"dash-heading"}>Transaction Detail</h2>
+                                    <Heading><h2><span> Transaction Detail</span></h2></Heading>
                                     <ul>
                                         <li>
                                             <span>ID</span>
