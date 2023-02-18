@@ -1,0 +1,194 @@
+.reports{
+  .ThemeBtn{
+    .btn{
+      height: 30px;
+      padding: 0;
+    }
+  }
+  .dfields {
+    label{
+      font-size: 12px;
+      margin: 5px 0;
+    }
+    .ant-space{
+      gap: 0px !important;
+    }
+    .ant-picker-range{
+      height: 30px;
+      border-radius: 5px;
+    }
+    .Select-field{
+      height: 30px;
+      label{
+        font-size: 12px;
+        margin: 5px 0;
+      }
+      .ant-select{
+        font-size: 14px;
+        .ant-select-selector{
+          height: 30px !important;
+          .ant-select-selection-overflow{
+            margin-top: -15px;
+          }
+          .ant-select-selection-search-input{
+            line-height: 28px;
+            font-size: 14px !important;
+            height: 30px !important;
+            color: var(--field-color);
+            font-weight: 600;
+          }
+        }
+        .ant-select-selection-item{
+          font-size: 14px !important;
+          font-weight: 400;
+          color: var(--field-color);
+          height: 20px;
+          line-height: 14px;
+        }
+        .ant-select-selection-placeholder{
+          font-size: 14px !important;
+          line-height: 14px;
+        }
+      }
+
+    }
+  }
+  .report-heading{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 23px;
+    color: #0C1F41;
+    position: relative;
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e2e2;
+    &:before{
+      position: absolute;
+      content: '';
+      width: 20%;
+      height: 4px;
+      background-color: #0178E5;
+      bottom: -2px;
+      border-radius: 10px;
+    }
+  }
+  .report-section{
+    margin: 25px 0 50px 0;
+  }
+  .report-section-right{
+    margin: 25px 0 0 0;
+  }
+  ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+   .report-box{
+     display: flex;
+     justify-content: space-between;
+     padding: 25px 15px 0 0;
+     gap: 0 20px;
+     min-width: 250px;
+     .report-details{
+       h4{
+         font-style: normal;
+         font-weight: 600;
+         font-size: 17px;
+         /* identical to box height */
+         color: #0178E5;
+         margin-bottom: 0;
+       }
+       p{
+         font-weight: 400;
+         font-size: 23px;
+         /* identical to box height, or 140% */
+         color: #0C1F41;
+         margin: 0;
+       }
+     }
+
+     .report-stats{
+       display: flex;
+       gap: 5px;
+       font-style: normal;
+       font-weight: 600;
+       font-size: 12px;
+       /* identical to box height */
+       color: #6EC9A8;
+       border-right: 1px solid #DCDCDC;
+       padding-right: 15px;
+     }
+  }
+  .category-box{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 10px;
+    border-bottom: 1px solid #F6F6F6;
+    .icon-box{
+      background: #F5F5F5;
+      padding: 10px;
+      border-radius: 10px;
+      border-bottom: 1px solid #d2d2;
+    }
+    .content{
+      width: 100%;
+      display: flex;
+      align-items: start;
+      justify-content: center;
+      flex-direction: column;
+      h6{
+        margin: 0;
+        font-weight: 400;
+        font-size: 14px;
+        color: #646C7C;
+      }
+      p{
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        color: #646C7C;
+        justify-content: space-between;
+        width: 100%;
+        span{
+          font-size: 20px;
+          color: #0178E5;
+          text-align: right;
+          margin-left: auto;
+        }
+      }
+    }
+  }
+  .excel-btn{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    color: #4CAF50;
+    border: 1px solid #E5E5E5;
+    padding: 3px 10px;
+  }
+}
+@media screen and (max-width: 1400px) and (min-width: 768px){
+  .reports{
+    .report-box{
+      min-width: 200px;
+      .report-stats{
+        border-right: none;
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px){
+  .reports{
+    .report-box{
+      min-width: 150px;
+      .report-stats{
+        border-right: none;
+      }
+    }
+  }
+}

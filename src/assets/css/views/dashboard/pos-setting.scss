@@ -1,0 +1,106 @@
+.pos-setting{
+  .dfields{
+    margin: 5px 0;
+    label{
+      margin: 10px 0;
+      font-weight: 600;
+      color: #646C7C;
+    }
+  }
+  .pos-logout-field{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    .radio-min{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      small{
+        //font-weight: 600;
+        //color: #646C7C;
+        font-size: 14px;
+      }
+      .dfields{
+        display: flex;
+        align-items: center;
+        position: relative;
+        flex-direction: row-reverse;
+        max-width: 180px;
+        margin: 0;
+        label{
+          margin-right: 10px;
+        }
+        .label-out.field-box{
+          height: 10px;
+        }
+        .field-box{
+          margin-right: 10px;
+          .form-group{
+            .form-control{
+              font-size: 14px;
+            }
+          }
+        }
+        .minutes-input{
+          display: flex;
+          gap: 6px;
+          align-items: center;
+          width: 140px;
+        }
+        .errors{
+          position: absolute;
+          bottom: -15px;
+          left: -5px;
+          small{
+            font-size: 12px;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+
+  .tip-field{
+    .dash-heading{
+      span{
+        font-size: 14px;
+      }
+    }
+    .tip-switch{
+      label{
+        margin-right: 10px;
+      }
+    }
+    .tip-fields-section{
+      display: flex;
+      gap: 8px;
+      .dfields{
+        label{
+          display: none;
+        }
+        input[disabled] {
+          opacity: 0.5;
+        }
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        .field-success{
+          svg{
+            color:#BDBDBD;
+          }
+        }
+        .field-error{
+          svg{
+            color:#BDBDBD;
+          }
+        }
+      }
+    }
+  }
+
+}
